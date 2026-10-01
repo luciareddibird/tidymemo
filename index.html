@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>なんでも帳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@600;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a filing cabinet — index drawer (categories) on the left, cards with coloured index tabs in the middle, a writing sheet that slides over. */
+:root{
+  --bg:#fef5f3; --paper:#ffffff; --ink:#4a3540; --muted:#8f7480; --line:#f5e2df; --soft:#fdf0ee;
+  --accent:#a9cdf0; --accent-ink:#253350; --danger:#b5546f; --warn-bg:#fdf3d6; --warn-ink:#6e5a1c; --mark:#fff0a3; --chip-ink:#4a3540;
+  --c0:#f9c9d4; --c1:#fdd8b8; --c2:#fbefb0; --c3:#cdeed3; --c4:#c4e8ec; --c5:#c9ddf7; --c6:#dccff3; --c7:#f5cbe6;
+  --display:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --shadow:0 1px 2px rgba(29,39,51,.06),0 4px 14px rgba(29,39,51,.06);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#2b1f23; --paper:#36292e; --ink:#f4e6ea; --muted:#b9a0a9; --line:#4b3940; --soft:#3f3035;
+  --accent:#a9cdf0; --accent-ink:#1d2433; --danger:#f0a0b4; --warn-bg:#3b3424; --warn-ink:#f3dea0; --mark:#6a5d2a;
+  --c0:#f2b8c6; --c1:#f6caa6; --c2:#efe2a0; --c3:#bfe2c6; --c4:#b4dce1; --c5:#bcd2ef; --c6:#cfc1ea; --c7:#ecbcdb;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#2b1f23; --paper:#36292e; --ink:#f4e6ea; --muted:#b9a0a9; --line:#4b3940; --soft:#3f3035;
+  --accent:#a9cdf0; --accent-ink:#1d2433; --danger:#f0a0b4; --warn-bg:#3b3424; --warn-ink:#f3dea0; --mark:#6a5d2a;
+  --c0:#f2b8c6; --c1:#f6caa6; --c2:#efe2a0; --c3:#bfe2c6; --c4:#b4dce1; --c5:#bcd2ef; --c6:#cfc1ea; --c7:#ecbcdb;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25); color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 48px}
+header.top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin-bottom:18px}
+.brand{display:flex;align-items:baseline;gap:10px;margin-right:auto}
+.brand h1{font-family:var(--display);font-weight:900;font-size:1.9rem;letter-spacing:.04em;margin:0;line-height:1.1}
+.brand small{color:var(--muted);font-size:.8rem}
+.status{font-family:var(--mono);font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+.status i{width:7px;height:7px;border-radius:50%;background:var(--muted);display:inline-block}
+.status.cloud i{background:var(--c3)} .status.local i{background:var(--c1)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--paper)}
+.seg button{border:0;background:none;padding:4px 12px;font-size:.8rem;font-weight:500;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.btn{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:7px 14px;font-weight:500;font-size:.88rem}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.danger{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 40%,var(--line))}
+.btn.danger.solid{background:var(--danger);color:var(--paper);border-color:var(--danger)}
+.btn.ghost{background:none;border-color:transparent;color:var(--muted)}
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:24px;align-items:start}
+nav.drawer{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);display:flex;flex-direction:column;gap:4px}
+.drawer h2{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:14px 10px 4px;font-weight:700}
+.folder{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:0;background:none;padding:7px 10px;border-radius:8px;font-size:.92rem}
+.folder:hover{background:var(--soft)}
+.folder[aria-current="true"]{background:var(--paper);box-shadow:var(--shadow);font-weight:700}
+.folder .dot{width:12px;height:12px;border-radius:3px;flex:none}
+.folder .n{margin-left:auto;font-family:var(--mono);font-size:.75rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.folder.bin .n.alert{color:var(--paper);background:var(--danger);border-radius:999px;padding:0 7px}
+.drawer .tools{display:flex;flex-direction:column;gap:6px;margin-top:14px;padding:12px 10px;border-top:1px solid var(--line)}
+.drawer .tools .btn{text-align:left}
+.searchbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.search{flex:1 1 260px;display:flex;align-items:center;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:0 12px}
+.search input{border:0;background:none;outline:none;padding:10px 0;width:100%;min-width:0}
+.search svg{flex:none;color:var(--muted)}
+.banner{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--warn-bg);color:var(--warn-ink);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:.9rem}
+.banner .btn{margin-left:auto}
+.viewhead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:4px 0 14px}
+.viewhead h2{font-family:var(--display);font-weight:600;font-size:1.35rem;margin:0;text-wrap:balance}
+.viewhead p{margin:0;color:var(--muted);font-size:.85rem}
+.viewhead .acts{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+ .list{display:flex;flex-direction:column;gap:8px}
+.item{background:var(--paper);border:1px solid var(--line);border-radius:14px;min-width:0;overflow:hidden}
+.item[data-open="true"]{box-shadow:0 2px 14px rgba(120,60,70,.10);border-color:var(--tab)}
+.head{display:flex;align-items:center;gap:10px;padding:4px 12px 4px 4px}
+.toggle{flex:1;min-width:0;display:flex;align-items:center;gap:12px;border:0;background:none;text-align:left;padding:10px 8px;border-radius:10px}
+.toggle:hover{background:var(--soft)}
+.chip{flex:none;background:var(--tab);color:var(--chip-ink);font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 10px;max-width:9em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tt{flex:1;min-width:0;display:flex;flex-direction:column}
+.tt b{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tt small{color:var(--muted);font-size:.78rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.date{flex:none;font-family:var(--mono);font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.chev{flex:none;color:var(--muted);transition:transform .2s}
+.item[data-open="true"] .chev{transform:rotate(90deg)}
+.content{padding:4px 20px 16px 20px;border-top:1px dashed var(--line);background:color-mix(in srgb,var(--tab) 14%,var(--paper))}
+.content .text{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.85;padding-top:12px;margin:0}
+.content .foot{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:12px;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.content .foot .btn{margin-left:auto;font-family:var(--body)}
+.why{font-size:.75rem;color:var(--danger);font-weight:500}
+.binacts{display:flex;gap:6px;flex:none}
+.binacts .btn{padding:4px 12px;font-size:.8rem}
+.item .confirm{margin:0 12px 12px}
+@media (max-width:520px){.date{display:none}.chip{max-width:6em}.head{flex-wrap:wrap}.binacts{margin-left:auto}}
+mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
+.empty{text-align:center;color:var(--muted);padding:48px 16px;border:1px dashed var(--line);border-radius:12px}
+.empty strong{display:block;font-family:var(--display);font-size:1.15rem;color:var(--ink);margin-bottom:4px}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--soft);border-radius:8px;padding:8px 10px;font-size:.85rem}
+/* sheet */
+.scrim{position:fixed;inset:0;background:rgba(10,16,24,.45);display:flex;justify-content:flex-end;z-index:20}
+.sheet{width:min(620px,100%);height:100%;background:var(--paper);display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.2);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.sheet .bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--line)}
+.sheet .bar .sp{margin-right:auto;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.sheet .body{flex:1;overflow:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.sheet input.title{font-family:var(--display);font-weight:600;font-size:1.4rem;border:0;border-bottom:1px solid var(--line);background:none;padding:6px 0;outline:none;width:100%}
+.sheet textarea{flex:1;min-height:280px;border:0;background:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,var(--soft) 31px,var(--soft) 32px);line-height:32px;resize:none;outline:none;width:100%;font-size:1rem}
+.catpick{display:flex;flex-wrap:wrap;gap:6px}
+.catpick button{border:1px solid var(--line);background:none;border-radius:999px;padding:3px 12px 3px 8px;font-size:.82rem;display:flex;align-items:center;gap:6px}
+.catpick button[aria-pressed="true"]{border-color:var(--ink);font-weight:700;background:var(--soft)}
+.catpick .dot{width:10px;height:10px;border-radius:3px}
+.meta{font-family:var(--mono);font-size:.72rem;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+/* category manager */
+.catrow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 0;border-bottom:1px solid var(--line)}
+.catrow input[type=text]{flex:1 1 140px;min-width:0;border:1px solid var(--line);border-radius:6px;background:var(--bg);padding:6px 8px}
+.swatches{display:flex;gap:4px;flex-wrap:wrap}
+.swatches button{width:22px;height:22px;border-radius:5px;border:2px solid transparent}
+.swatches button[aria-pressed="true"]{border-color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 20px);transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 16px;border-radius:999px;font-size:.85rem;z-index:40;box-shadow:var(--shadow)}
+.fab{display:none}
+@media (max-width:760px){
+  .layout{grid-template-columns:minmax(0,1fr)}
+  nav.drawer{position:static;flex-direction:row;flex-wrap:nowrap;overflow-x:auto;gap:6px;padding-bottom:4px}
+  .drawer h2,.drawer .tools{display:none}
+  .folder{width:auto;flex:none;white-space:nowrap;background:var(--paper);border:1px solid var(--line)}
+  .brand h1{font-size:1.5rem}
+  .mobiletools{display:flex!important}
+}
+.newrow{display:flex;justify-content:center;margin-bottom:16px}
+.btn.new{background:#f6d9b8;border-color:#ecc59a;color:#5a3a22;font-size:1rem;font-weight:700;padding:11px 34px;box-shadow:0 3px 12px rgba(120,60,70,.12)}
+.btn.new:hover{background:#f1cca2;border-color:#e2b483}
+.mobiletools{display:none;gap:8px;flex-wrap:wrap;margin-top:28px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><h1 data-t="appName">なんでも帳</h1><small data-t="tagline"></small></div>
+    <span class="status" id="status"><i></i><span id="statusText">…</span></span>
+    <div class="seg" role="group" aria-label="Language">
+      <button id="lang-ja" data-lang="ja">日本語</button><button id="lang-en" data-lang="en">English</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="drawer" id="drawer" aria-label="Folders"></nav>
+    <main style="min-width:0">
+      <div id="staleBanner"></div>
+      <div class="searchbar">
+        <label class="search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" autocomplete="off">
+        </label>
+        <select id="sort" class="btn" aria-label="Sort"></select>
+      </div>
+      <div class="newrow"><button class="btn primary new" id="newBtn" data-t="newMemo">＋ 新しいメモ</button></div>
+      <div class="viewhead" id="viewhead"></div>
+      <div id="grid" class="list"><div class="empty"><strong data-t="loading">読み込み中…</strong></div></div>
+      <div class="mobiletools" id="mobiletools"></div>
+    </main>
+  </div>
+</div>
+<input type="file" id="importFile" accept="application/json,.json" hidden>
+<div id="overlay"></div>
+<div id="toastHost"></div>
+
+<script>
+(function(){
+const DAY=864e5, STALE_DAYS=183;
+const T={
+ ja:{appName:"なんでも帳",tagline:"思いついたことを、ひとまずここへ。",newMemo:"＋ 新しいメモ",loading:"読み込み中…",
+  all:"すべてのメモ",categories:"カテゴリー",bin:"ゴミ箱",uncat:"未分類",search:"キーワードで検索（タイトル・本文）",
+  sortUpdated:"更新が新しい順",sortViewed:"最近見た順",sortTitle:"タイトル順",
+  manageCats:"カテゴリーを整理",exportJ:"バックアップを保存",importJ:"バックアップを読み込む",
+  cloud:"クラウドに保存中",local:"この端末に保存中",saved:"保存しました",
+  count:n=>`${n} 件`,resultsFor:(n,q)=>`「${q}」で ${n} 件見つかりました`,
+  emptyAllT:"まだメモがありません",emptyAll:"右上の「新しいメモ」から、最初の一枚を書いてみましょう。タイトルをクリックすると中身がひらきます。",
+  emptyCatT:"このカテゴリーは空です",emptyCat:"メモを開いて、カテゴリーを選ぶと仕分けられます。",
+  emptySearchT:"見つかりませんでした",emptySearch:"別のことばで探してみてください。",
+  emptyBinT:"ゴミ箱は空です",emptyBin:"半年以上ひらいていないメモは、自動的にここへ移ります。",
+  binIntro:"半年以上ひらいていないメモと、ゴミ箱へ移したメモです。一枚ずつ「残す」か「消す」を選べます。",
+  keep:"残す",del:"消す",keepAll:"すべて残す",emptyBinBtn:"ゴミ箱を空にする",
+  confirmEmpty:n=>`${n} 件のメモを完全に消します。元に戻せません。`,confirmDel:"このメモを完全に消します。元に戻せません。",
+  yesDelete:"完全に消す",cancel:"やめる",
+  staleReason:"半年以上ひらいていません",manualReason:"自分でゴミ箱へ移しました",
+  staleMoved:n=>`半年以上ひらいていないメモ ${n} 件をゴミ箱へ移しました。残すか消すか選んでください。`,review:"ゴミ箱を見る",
+  titlePh:"タイトル",bodyPh:"なんでも書いてください…",save:"保存",edit:"編集する",close:"閉じる",toBin:"ゴミ箱へ",
+  unsaved:"未保存の変更があります",saveClose:"保存して閉じる",discard:"保存せずに閉じる",
+  created:"作成",updated:"更新",viewed:"最終閲覧",category:"カテゴリー",untitled:"（無題）",
+  example:"例",catsTitle:"カテゴリーを整理",addCat:"＋ カテゴリーを追加",newCatName:"新しいカテゴリー",
+  delCat:"削除",catDelNote:"削除したカテゴリーのメモは「未分類」になります。",done:"完了",
+  movedToBin:"ゴミ箱へ移しました",kept:"残しました",deleted:"消しました",
+  exported:"バックアップを保存しました",imported:n=>`${n} 件のメモを読み込みました`,importErr:"このファイルは読み込めませんでした。なんでも帳のバックアップ（.json）を選んでください。",
+  exportUnavail:"この画面ではファイルを保存できません",
+  ago:d=>d<1?"今日":d<31?`${d}日前`:d<365?`${Math.floor(d/30.4)}か月前`:`${Math.floor(d/365)}年前`,
+  saveFail:"保存できませんでした。通信を確かめて、もう一度「保存」を押してください。"},
+ en:{appName:"Everything Book",tagline:"Whatever comes to mind, set it down here.",newMemo:"＋ New note",loading:"Loading…",
+  all:"All notes",categories:"Categories",bin:"Bin",uncat:"Uncategorised",search:"Search by keyword (title and text)",
+  sortUpdated:"Recently updated",sortViewed:"Recently opened",sortTitle:"By title",
+  manageCats:"Arrange categories",exportJ:"Save a backup",importJ:"Load a backup",
+  cloud:"Saved to the cloud",local:"Saved on this device",saved:"Saved",
+  count:n=>`${n} ${n===1?"note":"notes"}`,resultsFor:(n,q)=>`${n} ${n===1?"note":"notes"} matching “${q}”`,
+  emptyAllT:"No notes yet",emptyAll:"Press “New note” at the top to write your first one. Click a title to open it.",
+  emptyCatT:"Nothing in this category",emptyCat:"Open a note and choose a category to file it here.",
+  emptySearchT:"Nothing found",emptySearch:"Try a different word.",
+  emptyBinT:"The bin is empty",emptyBin:"Notes left unopened for six months are moved here automatically.",
+  binIntro:"Notes unopened for over six months, and notes you have binned. Choose to keep or delete each one.",
+  keep:"Keep",del:"Delete",keepAll:"Keep all",emptyBinBtn:"Empty the bin",
+  confirmEmpty:n=>`This deletes ${n} ${n===1?"note":"notes"} for good. It cannot be undone.`,confirmDel:"This deletes the note for good. It cannot be undone.",
+  yesDelete:"Delete for good",cancel:"Cancel",
+  staleReason:"Unopened for over six months",manualReason:"Moved to the bin by you",
+  staleMoved:n=>`${n} ${n===1?"note has":"notes have"} gone unopened for six months and ${n===1?"has":"have"} been moved to the bin. Choose which to keep.`,review:"Open the bin",
+  titlePh:"Title",bodyPh:"Write anything at all…",save:"Save",edit:"Edit",close:"Close",toBin:"Move to bin",
+  unsaved:"You have unsaved changes",saveClose:"Save and close",discard:"Close without saving",
+  created:"Created",updated:"Updated",viewed:"Last opened",category:"Category",untitled:"(Untitled)",
+  example:"Example",catsTitle:"Arrange categories",addCat:"＋ Add a category",newCatName:"New category",
+  delCat:"Remove",catDelNote:"Notes in a removed category become “Uncategorised”.",done:"Done",
+  movedToBin:"Moved to the bin",kept:"Kept",deleted:"Deleted",
+  exported:"Backup saved",imported:n=>`Loaded ${n} ${n===1?"note":"notes"}`,importErr:"That file could not be read. Choose an Everything Book backup (.json).",
+  exportUnavail:"Files cannot be saved from this view",
+  ago:d=>d<1?"today":d<31?`${d} ${d===1?"day":"days"} ago`:d<365?`${Math.floor(d/30.4)} months ago`:`${Math.floor(d/365)} ${d<730?"year":"years"} ago`,
+  saveFail:"Could not save. Check your connection and press Save again."}
+};
+const SEEDS={
+ ja:{cats:["アイデア","買い物","読書","仕事","暮らし"]},
+ en:{cats:["Ideas","Shopping","Reading","Work","Home"]}
+};
+
+/* ---------- state ---------- */
+let openSet=new Set(), S={settings:null,memos:{}}, lang=null, view={folder:"all",q:"",sort:"updated"}, store=null, staleJustMoved=0, editing=null, overlayMode=null, binConfirm=null;
+const $=s=>document.querySelector(s);
+const ls={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const uid=()=>Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const t=(k,...a)=>{const v=T[lang][k];return typeof v==="function"?v(...a):v};
+
+lang=ls.get("nandemo.lang")||((navigator.language||"ja").startsWith("ja")?"ja":"en");
+
+function seed(){
+  const d=SEEDS[lang], now=Date.now(), cats=d.cats.map((n,i)=>({id:"c"+uid(),name:n,color:[5,0,3,6,4][i]}));
+  return {settings:{id:"settings",categories:cats,seeded:true},memos:{}};
+}
+
+/* ---------- storage ---------- */
+function cacheLocal(){ls.set("nandemo.data",JSON.stringify(S))}
+const LocalStore={kind:"local",async putMemo(){cacheLocal()},async delMemo(){cacheLocal()},async putSettings(){cacheLocal()}};
+function CloudStore(db,id){
+  const col=db.collection("data/users/"+id);
+  return {kind:"cloud",
+    async load(){const snap=await col.get();const out={settings:null,memos:{}};snap.docs.forEach(d=>{const v=d.data();if(!v)return;if(d.id==="settings")out.settings=v;else if(d.id[0]==="m")out.memos[d.id]=v});return out},
+    async putMemo(m){cacheLocal();await col.doc(m.id).set(m)},
+    async delMemo(id){cacheLocal();await col.doc(id).delete()},
+    async putSettings(s){cacheLocal();await col.doc("settings").set(s)}};
+}
+async function persist(fn){try{await fn()}catch(e){console.warn(e);toast(t("saveFail"))}}
+function setStatus(){const el=$("#status");el.className="status "+(store?store.kind:"");$("#statusText").textContent=store?t(store.kind):"…"}
+
+async function boot(){
+  const cached=ls.get("nandemo.data");
+  if(cached){try{S=JSON.parse(cached)}catch(e){}}
+  if(S.settings)render();
+  let db=null,id=null;
+  try{
+    const claude=window.claude;
+    if(claude&&claude.use){
+      const [d,u]=await Promise.all([claude.use("db"),claude.use("user")]);
+      db=d; id=u?await u.id():null;
+    }
+  }catch(e){db=null}
+  if(db&&id){
+    const cs=CloudStore(db,id);
+    try{
+      const remote=await cs.load();
+      store=cs;
+      if(remote.settings){S=remote;cacheLocal()}
+      else{ if(!S.settings) S=seed(); await persist(async()=>{await cs.putSettings(S.settings);for(const m of Object.values(S.memos))await cs.putMemo(m)}) }
+    }catch(e){console.warn(e);store=LocalStore}
+  }else store=LocalStore;
+  if(!S.settings){S=seed();cacheLocal()}
+  for(const m of Object.values(S.memos)) if(m.example){delete S.memos[m.id];persist(()=>store.delMemo(m.id))}
+  checkStale(true);
+  render();
+}
+
+function checkStale(write){
+  const now=Date.now(); let n=0;
+  for(const m of Object.values(S.memos)){
+    if(m.status==="active"&&now-m.viewed>STALE_DAYS*DAY){m.status="bin";m.reason="stale";m.binned=now;n++;if(write&&store)persist(()=>store.putMemo(m))}
+  }
+  if(n)staleJustMoved+=n;
+}
+
+/* ---------- helpers ---------- */
+const cats=()=>S.settings.categories;
+const catOf=m=>cats().find(c=>c.id===m.cat);
+const colorVar=c=>c?`var(--c${c.color})`:"var(--line)";
+const fmtDate=ts=>new Date(ts).toLocaleDateString(lang==="ja"?"ja-JP":"en-GB",{year:"numeric",month:lang==="ja"?"numeric":"long",day:"numeric"});
+const ago=ts=>t("ago",Math.floor((Date.now()-ts)/DAY));
+function hl(text,q){
+  const s=esc(text); if(!q) return s;
+  const words=q.trim().split(/\s+/).filter(Boolean).map(w=>esc(w).replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
+  if(!words.length) return s;
+  return s.replace(new RegExp("("+words.join("|")+")","gi"),"<mark>$1</mark>");
+}
+function matches(m,q){const words=q.toLowerCase().trim().split(/\s+/).filter(Boolean);const hay=(m.title+"\n"+m.body).toLowerCase();return words.every(w=>hay.includes(w))}
+function toast(msg){const h=$("#toastHost");h.innerHTML=`<div class="toast" role="status">${esc(msg)}</div>`;clearTimeout(toast.t);toast.t=setTimeout(()=>h.innerHTML="",2600)}
+
+/* ---------- render ---------- */
+function render(){
+  document.documentElement.lang=lang;
+  document.title=t("appName");
+  document.querySelectorAll("[data-t]").forEach(el=>el.textContent=t(el.dataset.t));
+  $("#lang-ja").setAttribute("aria-pressed",lang==="ja");$("#lang-en").setAttribute("aria-pressed",lang==="en");
+  $("#q").placeholder=t("search");
+  $("#sort").innerHTML=["updated","viewed","title"].map(k=>`<option value="${k}" ${view.sort===k?"selected":""}>${t("sort"+k[0].toUpperCase()+k.slice(1))}</option>`).join("");
+  setStatus();
+  if(!S.settings) return;
+  const all=Object.values(S.memos), active=all.filter(m=>m.status==="active"), binned=all.filter(m=>m.status==="bin");
+  const staleInBin=binned.filter(m=>m.reason==="stale").length;
+  // drawer
+  const f=(key,label,n,dot,cls="")=>`<button class="folder ${cls}" data-folder="${key}" aria-current="${view.folder===key}">${dot?`<span class="dot" style="background:${dot}"></span>`:""}<span>${esc(label)}</span><span class="n ${cls&&staleInBin?"alert":""}">${n}</span></button>`;
+  const toolsHtml=`<button class="btn ghost" data-act="cats">${t("manageCats")}</button><button class="btn ghost" data-act="export">${t("exportJ")}</button><button class="btn ghost" data-act="import">${t("importJ")}</button>`;
+  $("#drawer").innerHTML=f("all",t("all"),active.length)+`<h2>${t("categories")}</h2>`+
+    cats().map(c=>f(c.id,c.name,active.filter(m=>m.cat===c.id).length,colorVar(c))).join("")+
+    f("none",t("uncat"),active.filter(m=>!catOf(m)).length,"var(--line)")+
+    `<h2>&nbsp;</h2>`+f("bin",t("bin"),binned.length,null,"bin")+`<div class="tools">${toolsHtml}</div>`;
+  $("#mobiletools").innerHTML=toolsHtml;
+  // banner
+  $("#staleBanner").innerHTML=staleJustMoved&&view.folder!=="bin"?`<div class="banner" role="status"><span>${esc(t("staleMoved",staleJustMoved))}</span><button class="btn" data-folder="bin">${t("review")}</button></div>`:"";
+  // list
+  let list = view.folder==="bin"?binned: view.folder==="all"?active: view.folder==="none"?active.filter(m=>!catOf(m)): active.filter(m=>m.cat===view.folder);
+  if(view.q) list=list.filter(m=>matches(m,view.q));
+  list.sort(view.sort==="title"?(a,b)=>(a.title||"").localeCompare(b.title||"",lang):view.sort==="viewed"?(a,b)=>b.viewed-a.viewed:(a,b)=>b.updated-a.updated);
+  const cur=view.folder==="all"?t("all"):view.folder==="bin"?t("bin"):view.folder==="none"?t("uncat"):(cats().find(c=>c.id===view.folder)||{}).name;
+  let head=`<h2>${esc(cur)}</h2><p>${view.q?esc(t("resultsFor",list.length,view.q)):t("count",list.length)}</p>`;
+  if(view.folder==="bin"&&binned.length){
+    head+=`<div class="acts"><button class="btn" data-act="keepall">${t("keepAll")}</button><button class="btn danger" data-act="emptybin">${t("emptyBinBtn")}</button></div>`;
+    head+=`<p style="flex-basis:100%">${t("binIntro")}</p>`;
+    if(binConfirm==="all") head+=`<div class="confirm" style="flex-basis:100%"><span>${esc(t("confirmEmpty",binned.length))}</span><button class="btn danger solid" data-act="emptyyes">${t("yesDelete")}</button><button class="btn ghost" data-act="cancelconfirm">${t("cancel")}</button></div>`;
+  }
+  $("#viewhead").innerHTML=head;
+  const g=$("#grid");
+  if(!list.length){
+    const k=view.q?"Search":view.folder==="bin"?"Bin":view.folder==="all"?"All":"Cat";
+    g.innerHTML=`<div class="empty"><strong>${t("empty"+k+"T")}</strong>${t("empty"+k)}</div>`;return;
+  }
+  g.innerHTML=list.map(m=>{
+    const c=catOf(m), name=c?c.name:t("uncat"), open=openSet.has(m.id);
+    let snip="";
+    if(view.q&&!open&&m.body&&matches({title:"",body:m.body},view.q)){const lw=view.q.trim().split(/\s+/)[0].toLowerCase();const i=Math.max(0,m.body.toLowerCase().indexOf(lw)-12);snip=`<small>${i?"…":""}${hl(m.body.slice(i,i+80).replace(/\n/g," "),view.q)}</small>`}
+    const chev=`<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg>`;
+    const tog=`<button class="toggle" data-toggle="${m.id}" aria-expanded="${open}"><span class="chip">${esc(name)}</span><span class="tt"><b>${hl(m.title||t("untitled"),view.q)}</b>${snip}</span><span class="date">${fmtDate(m.updated)}</span>${chev}</button>`;
+    let extra="", body="";
+    if(m.status==="bin"){
+      extra=`<span class="binacts"><button class="btn primary" data-act="keep" data-id="${m.id}">${t("keep")}</button><button class="btn danger" data-act="del" data-id="${m.id}">${t("del")}</button></span>`;
+      if(binConfirm===m.id) extra+=`</div><div class="confirm"><span>${t("confirmDel")}</span><button class="btn danger solid" data-act="delyes" data-id="${m.id}">${t("yesDelete")}</button><button class="btn ghost" data-act="cancelconfirm">${t("cancel")}</button>`;
+    }
+    if(open) body=`<div class="content"><p class="text">${hl(m.body,view.q)||`<span style="color:var(--muted)">—</span>`}</p><div class="foot">${m.status==="bin"?`<span class="why">${m.reason==="stale"?t("staleReason"):t("manualReason")}</span>`:""}<span>${t("created")} ${fmtDate(m.created)}</span><span>${t("updated")} ${fmtDate(m.updated)}</span>${m.status==="bin"?"":`<button class="btn" data-open="${m.id}">${t("edit")}</button>`}</div></div>`;
+    return `<article class="item" data-open="${open}" style="--tab:${colorVar(c)}"><div class="head">${tog}${extra}</div>${body}</article>`;
+  }).join("");
+}
+
+/* ---------- editor ---------- */
+function openEditor(id){
+  const now=Date.now();
+  let m;
+  if(id){m=S.memos[id];m.viewed=now;persist(()=>store.putMemo(m))}
+  else{const c=cats().find(c=>c.id===view.folder);m={id:"m"+uid(),title:"",body:"",cat:c?c.id:null,created:now,updated:now,viewed:now,status:"active",isNew:true}}
+  editing={orig:m,draft:{...m},confirmClose:false};overlayMode="edit";drawOverlay();
+  setTimeout(()=>(id?$("#ed-body"):$("#ed-title")).focus(),30);
+}
+function dirty(){const o=editing.orig,d=editing.draft;return editing.orig.isNew?(d.title.trim()||d.body.trim()):(o.title!==d.title||o.body!==d.body||o.cat!==d.cat)}
+function drawOverlay(){
+  const o=$("#overlay");
+  if(!overlayMode){o.innerHTML="";return}
+  if(overlayMode==="edit"){
+    const d=editing.draft;
+    o.innerHTML=`<div class="scrim" data-act="scrim"><section class="sheet" role="dialog" aria-modal="true" aria-label="${esc(d.title||t("untitled"))}">
+      <div class="bar"><span class="sp" id="ed-state">${dirty()?t("unsaved"):""}</span>
+        ${d.isNew?"":`<button class="btn danger" data-act="tobin">${t("toBin")}</button>`}
+        <button class="btn" data-act="close">${t("close")}</button><button class="btn primary" data-act="save">${t("save")}</button></div>
+      ${editing.confirmClose?`<div class="confirm" style="margin:10px 16px 0"><span>${t("unsaved")}</span><button class="btn primary" data-act="saveclose">${t("saveClose")}</button><button class="btn danger" data-act="discard">${t("discard")}</button><button class="btn ghost" data-act="cancelclose">${t("cancel")}</button></div>`:""}
+      <div class="body">
+        <input class="title" id="ed-title" placeholder="${t("titlePh")}" value="${esc(d.title)}">
+        <div class="catpick" role="group" aria-label="${t("category")}">${cats().map(c=>`<button data-pick="${c.id}" aria-pressed="${d.cat===c.id}"><span class="dot" style="background:${colorVar(c)}"></span>${esc(c.name)}</button>`).join("")}<button data-pick="" aria-pressed="${!catOf(d)}"><span class="dot" style="background:var(--line)"></span>${t("uncat")}</button></div>
+        <textarea id="ed-body" placeholder="${t("bodyPh")}">${esc(d.body)}</textarea>
+        <div class="meta"><span>${t("created")} ${fmtDate(d.created)}</span><span>${t("updated")} ${fmtDate(d.updated)}</span></div>
+      </div></section></div>`;
+    $("#ed-title").oninput=e=>{d.title=e.target.value;$("#ed-state").textContent=dirty()?t("unsaved"):""};
+    $("#ed-body").oninput=e=>{d.body=e.target.value;$("#ed-state").textContent=dirty()?t("unsaved"):""};
+  }
+  if(overlayMode==="cats"){
+    o.innerHTML=`<div class="scrim" data-act="scrim"><section class="sheet" role="dialog" aria-modal="true" aria-label="${t("catsTitle")}">
+      <div class="bar"><span class="sp" style="font-family:var(--display);font-size:1.1rem;color:var(--ink)">${t("catsTitle")}</span><button class="btn primary" data-act="close">${t("done")}</button></div>
+      <div class="body"><p style="margin:0;color:var(--muted);font-size:.85rem">${t("catDelNote")}</p>
+      ${cats().map(c=>`<div class="catrow"><input type="text" id="cat-${c.id}" data-catname="${c.id}" value="${esc(c.name)}" aria-label="${t("category")}">
+        <div class="swatches">${[0,1,2,3,4,5,6,7].map(i=>`<button data-swatch="${c.id}:${i}" aria-pressed="${c.color===i}" style="background:var(--c${i})" aria-label="colour ${i+1}"></button>`).join("")}</div>
+        <button class="btn ghost" data-delcat="${c.id}">${t("delCat")}</button></div>`).join("")}
+      <div><button class="btn" data-act="addcat">${t("addCat")}</button></div></div></section></div>`;
+    o.querySelectorAll("[data-catname]").forEach(inp=>inp.onchange=e=>{const c=cats().find(x=>x.id===inp.dataset.catname);c.name=e.target.value.trim()||c.name;saveSettings();render()});
+  }
+}
+function saveSettings(){persist(()=>store.putSettings(S.settings))}
+async function saveEditor(){
+  const d=editing.draft; delete d.isNew; delete d.example;
+  d.updated=Date.now(); d.viewed=d.updated;
+  S.memos[d.id]=d; editing.orig={...d}; editing.draft={...d};
+  render(); $("#ed-state").textContent="";
+  await persist(()=>store.putMemo(d));
+  toast(t("saved")+" · "+t(store.kind));
+}
+function closeOverlay(force){
+  if(overlayMode==="edit"&&!force&&dirty()){editing.confirmClose=true;drawOverlay();return}
+  overlayMode=null;editing=null;drawOverlay();render();
+}
+
+/* ---------- events ---------- */
+document.addEventListener("click",async e=>{
+  const el=e.target.closest("[data-toggle],[data-folder],[data-open],[data-act],[data-lang],[data-pick],[data-swatch],[data-delcat]");
+  if(!el) return;
+  if(el.dataset.act==="scrim"&&e.target!==el) return;
+  if(el.dataset.lang){lang=el.dataset.lang;ls.set("nandemo.lang",lang);render();if(overlayMode)drawOverlay();return}
+  if(el.dataset.folder){view.folder=el.dataset.folder;binConfirm=null;if(view.folder==="bin")staleJustMoved=0;render();return}
+  if(el.dataset.toggle){const id=el.dataset.toggle,m=S.memos[id];if(openSet.has(id))openSet.delete(id);else{openSet.add(id);if(m.status==="active"){m.viewed=Date.now();persist(()=>store.putMemo(m))}}render();return}
+  if(el.dataset.open){openEditor(el.dataset.open);return}
+  if(el.dataset.pick!==undefined){editing.draft.cat=el.dataset.pick||null;const y=$("#ed-body").scrollTop;drawOverlay();$("#ed-body").scrollTop=y;return}
+  if(el.dataset.swatch){const [id,i]=el.dataset.swatch.split(":");cats().find(c=>c.id===id).color=+i;saveSettings();drawOverlay();render();return}
+  if(el.dataset.delcat){S.settings.categories=cats().filter(c=>c.id!==el.dataset.delcat);if(view.folder===el.dataset.delcat)view.folder="all";saveSettings();drawOverlay();render();return}
+  const id=el.dataset.id, m=id&&S.memos[id];
+  switch(el.dataset.act){
+    case "scrim": case "close": closeOverlay(); break;
+    case "save": await saveEditor(); break;
+    case "saveclose": await saveEditor(); closeOverlay(true); break;
+    case "discard": closeOverlay(true); break;
+    case "cancelclose": editing.confirmClose=false; drawOverlay(); break;
+    case "tobin": {const o=S.memos[editing.orig.id];o.status="bin";o.reason="manual";o.binned=Date.now();persist(()=>store.putMemo(o));closeOverlay(true);toast(t("movedToBin"));break}
+    case "keep": m.status="active";m.viewed=Date.now();delete m.reason;persist(()=>store.putMemo(m));render();toast(t("kept"));break;
+    case "del": binConfirm=id; render(); break;
+    case "delyes": delete S.memos[id]; binConfirm=null; persist(()=>store.delMemo(id)); render(); toast(t("deleted")); break;
+    case "cancelconfirm": binConfirm=null; render(); break;
+    case "keepall": for(const x of Object.values(S.memos))if(x.status==="bin"){x.status="active";x.viewed=Date.now();delete x.reason;persist(()=>store.putMemo(x))} render(); toast(t("kept")); break;
+    case "emptybin": binConfirm="all"; render(); break;
+    case "emptyyes": for(const x of Object.values(S.memos))if(x.status==="bin"){delete S.memos[x.id];persist(()=>store.delMemo(x.id))} binConfirm=null; render(); toast(t("deleted")); break;
+    case "cats": overlayMode="cats"; drawOverlay(); break;
+    case "addcat": {const used=cats().map(c=>c.color);const color=[0,1,2,3,4,5,6,7].find(i=>!used.includes(i))??0;const c={id:"c"+uid(),name:t("newCatName"),color};cats().push(c);saveSettings();drawOverlay();render();const inp=$("#cat-"+c.id);inp&&(inp.focus(),inp.select());break}
+    case "export": exportBackup(); break;
+    case "import": $("#importFile").click(); break;
+  }
+});
+$("#newBtn").onclick=()=>openEditor(null);
+$("#q").oninput=e=>{view.q=e.target.value;render()};
+$("#sort").onchange=e=>{view.sort=e.target.value;render()};
+document.addEventListener("keydown",e=>{
+  if(overlayMode==="edit"&&(e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="s"){e.preventDefault();saveEditor()}
+  else if(overlayMode&&e.key==="Escape"){closeOverlay()}
+  else if(!overlayMode&&e.key==="/"&&document.activeElement.tagName!=="INPUT"){e.preventDefault();$("#q").focus()}
+});
+
+async function exportBackup(){
+  let dl=null; try{dl=window.claude&&await window.claude.use("downloads")}catch(e){}
+  const stamp=new Date().toISOString().slice(0,10);
+  if(!dl){
+    try{const blob=new Blob([JSON.stringify({app:"nandemo-cho",version:1,exported:Date.now(),...S},null,2)],{type:"application/json"});
+      const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`nandemo-backup-${stamp}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast(t("exported"))}
+    catch(e){toast(t("exportUnavail"))}
+    return}
+  try{const r=await dl.save({filename:`nandemo-backup-${stamp}.json`,data:JSON.stringify({app:"nandemo-cho",version:1,exported:Date.now(),...S},null,2)});if(r&&r.status==="saved")toast(t("exported"))}
+  catch(e){if(e&&e.code==="unavailable")toast(t("exportUnavail"))}
+}
+$("#importFile").onchange=async e=>{
+  const file=e.target.files[0]; e.target.value=""; if(!file) return;
+  try{
+    const data=JSON.parse(await file.text());
+    if(!data.settings||!data.memos) throw 0;
+    for(const c of data.settings.categories||[]) if(!cats().some(x=>x.id===c.id)) cats().push(c);
+    let n=0; for(const m of Object.values(data.memos)){ if(!m||!m.id) continue; S.memos[m.id]=m; n++; persist(()=>store.putMemo(m)) }
+    saveSettings(); render(); toast(t("imported",n));
+  }catch(err){toast(t("importErr"))}
+};
+
+render(); boot();
+})();
+</script>
+
+</body>
+</html>
