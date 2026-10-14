@@ -36,8 +36,8 @@ button{cursor:pointer}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .wrap{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:20px 48px}
 header.top{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin-bottom:18px}
-.brand{display:flex;align-items:baseline;gap:10px;margin-right:auto}
-.brand h1{font-family:var(--display);font-weight:900;font-size:1.9rem;letter-spacing:.04em;margin:0;line-height:1.1}
+.brand{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-right:auto;min-width:0}
+.brand h1{white-space:nowrap;font-family:var(--display);font-weight:900;font-size:1.9rem;letter-spacing:.04em;margin:0;line-height:1.1}
 .brand small{color:var(--muted);font-size:.8rem}
 .status{font-family:var(--mono);font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:6px}
 .status i{width:7px;height:7px;border-radius:50%;background:var(--muted);display:inline-block}
@@ -151,8 +151,10 @@ mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
 @media (max-width:760px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.step small{display:none}}
 .tips{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.78rem;color:var(--muted);margin:-2px 2px 12px}
 .tips b{color:var(--ink);font-weight:700}
-.capture{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.capture input{flex:1 1 240px;min-width:0;border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:10px 12px}
+.capture{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.capture input{flex:1 1 260px;min-width:0;border:1.5px solid var(--line);border-radius:12px;background:var(--paper);padding:14px 16px;font-size:1.05rem;box-shadow:var(--shadow)}
+.capture input:focus{border-color:var(--accent);outline:none}
+.capture .btn.primary{font-size:1rem;font-weight:700;padding:10px 26px}
 .no{font-family:var(--mono);font-size:.74rem;font-weight:500;color:var(--muted);background:var(--soft);border-radius:6px;padding:0 6px;margin-right:8px;font-variant-numeric:tabular-nums}
 .item[data-depth]{margin-left:calc(var(--d,0) * 22px)}
 @media (max-width:520px){.item[data-depth]{margin-left:calc(var(--d,0) * 10px)}}
@@ -203,13 +205,13 @@ mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
     </div>
   </header>
 
+  <form class="capture" id="capture"><input id="cap" autocomplete="off" aria-label="capture"><button class="btn primary" data-t="collect">集める</button><button type="button" class="btn" id="newBtn" data-t="newMemo">＋ 新しいメモ</button></form>
   <div class="layout">
     <nav class="drawer" id="drawer" aria-label="Folders"></nav>
     <main style="min-width:0">
       <div id="staleBanner"></div>
       <div class="steps" id="steps"></div>
       <div class="tips" id="tips"></div>
-      <form class="capture" id="capture"><input id="cap" autocomplete="off" aria-label="capture"><button class="btn primary" data-t="collect">集める</button><button type="button" class="btn" id="newBtn" data-t="newMemo">＋ 新しいメモ</button></form>
       <div class="searchbar">
         <label class="search">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -237,7 +239,7 @@ const T={
   manageCats:"カテゴリーを整理",exportJ:"バックアップを保存",importJ:"バックアップを読み込む",
   cloud:"クラウドに保存中",local:"この端末に保存中",saved:"保存しました",
   count:n=>`${n} 件`,resultsFor:(n,q)=>`「${q}」で ${n} 件見つかりました`,
-  emptyAllT:"まだメモがありません",emptyAll:"右上の「新しいメモ」から、最初の一枚を書いてみましょう。タイトルをクリックすると中身がひらきます。",
+  emptyAllT:"まだメモがありません",emptyAll:"いちばん上の欄に、思いついたことをひとつ書いて Enter。それが最初の一枚になります。",
   emptyCatT:"このカテゴリーは空です",emptyCat:"メモを開いて、カテゴリーを選ぶと仕分けられます。",
   emptySearchT:"見つかりませんでした",emptySearch:"別のことばで探してみてください。",
   emptyBinT:"ゴミ箱は空です",emptyBin:"半年以上ひらいていないメモは、自動的にここへ移ります。",
@@ -291,7 +293,7 @@ const T={
   manageCats:"Arrange categories",exportJ:"Save a backup",importJ:"Load a backup",
   cloud:"Saved to the cloud",local:"Saved on this device",saved:"Saved",
   count:n=>`${n} ${n===1?"note":"notes"}`,resultsFor:(n,q)=>`${n} ${n===1?"note":"notes"} matching “${q}”`,
-  emptyAllT:"No notes yet",emptyAll:"Press “New note” at the top to write your first one. Click a title to open it.",
+  emptyAllT:"No notes yet",emptyAll:"Type one idea into the box at the very top and press Enter. That is your first note.",
   emptyCatT:"Nothing in this category",emptyCat:"Open a note and choose a category to file it here.",
   emptySearchT:"Nothing found",emptySearch:"Try a different word.",
   emptyBinT:"The bin is empty",emptyBin:"Notes left unopened for six months are moved here automatically.",
@@ -861,6 +863,7 @@ $("#importFile").onchange=async e=>{
 };
 
 render(); boot();
+try{if(matchMedia("(pointer:fine)").matches)$("#cap").focus()}catch(e){}
 })();
 </script>
 
