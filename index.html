@@ -138,38 +138,58 @@ mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
 .gtools .btn{padding:4px 11px;font-size:.85rem}
 .ghint{color:var(--muted);font-size:.82rem;margin:10px 4px 0}
 /* zettelkasten flow */
-.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:12px}
 .step{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:10px 12px;min-width:0}
 .step:hover{border-color:var(--muted)}
 .step[aria-current="true"]{border-color:var(--ink);box-shadow:var(--shadow)}
 .step b{font-family:var(--display);font-weight:600;font-size:1rem}
 .step b span{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-right:6px}
-.step small{color:var(--muted);font-size:.75rem;line-height:1.4}
+.step small{color:var(--muted);font-size:.74rem;line-height:1.4}
 .step em{font-style:normal;font-family:var(--mono);font-size:.72rem;margin-top:4px;background:var(--soft);border-radius:999px;padding:1px 8px}
 .step em.on{background:var(--accent);color:var(--accent-ink)}
+@media (max-width:900px){.steps{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:760px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.step small{display:none}}
+.tips{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.78rem;color:var(--muted);margin:-2px 2px 12px}
+.tips b{color:var(--ink);font-weight:700}
 .capture{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .capture input{flex:1 1 240px;min-width:0;border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:10px 12px}
-.seed{font-size:.68rem;font-weight:700;border:1px dashed var(--muted);color:var(--muted);border-radius:999px;padding:0 7px;margin-right:6px}
-.xlinks{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.xl{display:inline-flex;align-items:center;gap:4px;border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:2px 10px;font-size:.8rem;max-width:100%}
-.xl:hover{border-color:var(--muted)}
-.xl a{color:inherit;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.xl i{font-style:normal;font-weight:700;color:var(--muted)}
-.xl button{border:0;background:none;padding:0 0 0 4px;color:var(--muted)}
-.bl{margin-top:10px;font-size:.82rem;color:var(--muted);font-family:var(--body)}
-.bl a{margin-right:10px}
+.no{font-family:var(--mono);font-size:.74rem;font-weight:500;color:var(--muted);background:var(--soft);border-radius:6px;padding:0 6px;margin-right:8px;font-variant-numeric:tabular-nums}
+.item[data-depth]{margin-left:calc(var(--d,0) * 22px)}
+@media (max-width:520px){.item[data-depth]{margin-left:calc(var(--d,0) * 10px)}}
+.refs{display:flex;flex-direction:column;gap:4px;margin-top:12px;font-size:.85rem}
+.refs a{color:inherit}
+.refs .why{color:var(--muted);font-weight:400;font-size:.8rem}
+.refs .lbl{font-size:.74rem;color:var(--muted);font-weight:700;letter-spacing:.04em}
 .zk{display:flex;flex-direction:column;gap:8px;border-top:1px solid var(--line);padding-top:12px}
-.zk h3{margin:6px 0 0;font-size:.8rem;letter-spacing:.06em;color:var(--muted);font-weight:700}
-.zk .row{display:flex;gap:8px;flex-wrap:wrap}
+.zk h3{margin:8px 0 0;font-size:.8rem;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.zk .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .zk .row input{flex:1 1 200px;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:6px 10px}
+.refrow{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;background:var(--soft);border-radius:10px;padding:8px 10px}
+.refrow .tgt{flex:1 1 180px;min-width:0;font-weight:700;overflow-wrap:anywhere}
+.refrow input{flex:1 1 220px;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:5px 9px;font-size:.85rem}
+.refrow .btn{padding:3px 10px;font-size:.78rem}
+.refrow .x{border:0;background:none;color:var(--muted);font-size:1.1rem;padding:0 4px}
 .sugg{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .sugg small{color:var(--muted);font-size:.78rem}
-.sugg button{border:1px dashed var(--muted);background:none;border-radius:999px;padding:2px 10px;font-size:.8rem}
-.grow{background:color-mix(in srgb,var(--c3) 35%,var(--paper));border-radius:10px;padding:10px 14px;font-size:.88rem}
-.grow ol{margin:6px 0 10px;padding-left:1.4em}
-.content .foot .revacts{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
-.content .foot .revacts .btn{margin-left:0}
+.sugg button.s{border:1px dashed var(--muted);background:none;border-radius:999px;padding:2px 10px;font-size:.8rem}
+.muted{color:var(--muted);font-size:.82rem;margin:0}
+.themes{display:flex;flex-direction:column;gap:10px}
+.theme{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.theme header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.theme header input{flex:1 1 200px;min-width:0;font-family:var(--display);font-weight:600;font-size:1.1rem;border:0;border-bottom:1px solid transparent;background:none;padding:2px 0}
+.theme header input:focus{border-bottom-color:var(--line);outline:none}
+.theme ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.theme li{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:8px}
+.theme li:hover{background:var(--soft)}
+.theme li a{flex:1;min-width:0;color:inherit;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.theme li button{border:0;background:none;color:var(--muted);padding:0 5px;font-size:.9rem}
+.theme .row{display:flex;gap:8px;flex-wrap:wrap}
+.theme .row input{flex:1 1 200px;min-width:0;border:1px solid var(--line);border-radius:8px;background:var(--bg);padding:6px 10px}
+.newtheme{display:flex;gap:8px;flex-wrap:wrap}
+.newtheme input{flex:1 1 240px;min-width:0;border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:9px 12px}
+.tpick{display:flex;flex-wrap:wrap;gap:6px}
+.tpick button{border:1px solid var(--line);background:none;border-radius:999px;padding:2px 11px;font-size:.8rem}
+.tpick button[aria-pressed="true"]{border-color:var(--ink);background:var(--soft);font-weight:700}
 .wl{color:inherit;text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:3px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -188,6 +208,7 @@ mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
     <main style="min-width:0">
       <div id="staleBanner"></div>
       <div class="steps" id="steps"></div>
+      <div class="tips" id="tips"></div>
       <form class="capture" id="capture"><input id="cap" autocomplete="off" aria-label="capture"><button class="btn primary" data-t="collect">集める</button><button type="button" class="btn" id="newBtn" data-t="newMemo">＋ 新しいメモ</button></form>
       <div class="searchbar">
         <label class="search">
@@ -237,24 +258,33 @@ const T={
   ago:d=>d<1?"今日":d<31?`${d}日前`:d<365?`${Math.floor(d/30.4)}か月前`:`${Math.floor(d/365)}年前`,
   saveFail:"保存できませんでした。通信を確かめて、もう一度「保存」を押してください。",
   graph:"グラフビュー",graphCount:(n,e)=>`${n} 件のメモ・${e} 本のつながり`,zoomIn:"拡大",zoomOut:"縮小",fit:"全体を表示",
-  graphHint:"本文に [[メモのタイトル]] と書くと、メモ同士が線でつながります。点をクリックするとメモがひらき、ドラッグで動かせます。",
-  collect:"集める",capPh:"思いついたこと・URLを、ひとまずここへ（Enterで集める）",collected:"たねを集めました",seed:"たね",
-  s1:"集める",s1d:"思いつき・気になるURLを、そのまま入れる",s1c:n=>`今日 ${n} 件`,
-  s2:"育てる",s2d:"たねを自分の言葉で書き直す",s2c:n=>`たね ${n}`,
-  s3:"つなぐ",s3d:"関係するメモや資料とつなげる",s3c:n=>`ひとりぼっち ${n}`,
-  s4:"見直す",s4d:"ときどき読み返して、書き足す",s4c:n=>`今日 ${n}`,
-  seedsIntro:"集めたたねです。ひらいて自分の言葉で書き直し、「育て終わった」を押すとメモになります。",
-  emptySeedsT:"育てるたねはありません",emptySeeds:"上の入力欄に、思いついたことやURLを入れて集めましょう。",
-  lonelyIntro:"まだどのメモともつながっていないメモです。ひらいて「メモとつなぐ」から、関係するメモを選びましょう。",
+  graphHint:"メモ同士のつながりを線で表示します。点をクリックするとメモがひらき、ドラッグで動かせます。",
+  collect:"書く",capPh:"思いついたことを、ひとつだけ（Enterで書きとめる）",collected:n=>`メモ ${n} を書きとめました`,
+  s1:"書く",s1d:"ひとつのメモに、ひとつのアイデア",s1c:n=>`今日 ${n} 枚`,
+  s2:"番号",s2d:"番号は自動。続きは 1/1、1/1/1",s2c:n=>`${n} 枚`,
+  s3:"つなぐ",s3d:"関係するメモを番号でつなぐ",s3c:n=>`ひとりぼっち ${n}`,
+  s4:"見直す",s4d:"読み返して、書き足す",s4c:n=>`今日 ${n}`,
+  s5:"テーマ",s5d:"テーマごとに番号を並べる",s5c:n=>`${n} テーマ`,
+  tipsT:"コツ",tip1:"完璧を目指さない。まず書く",tip2:"1日5分のスキマ時間で",tip3:"「書く日」と「つなぐ日」をわけてもいい",
+  boxIntro:"メモ箱です。番号順に並んでいます。メモをひらいて「続きを書く」を押すと、そのメモの下に 1/1、1/2… と差し込めます。",
+  emptyBoxT:"メモ箱は空です",emptyBox:"上の欄に、思いついたことをひとつ書いてみましょう。",
+  lonelyIntro:"まだどのメモともつながっていないメモです。ひらいて、過去のメモを見返しながら、関係するメモの番号を選んでつなぎましょう。",
   emptyLonelyT:"ひとりぼっちのメモはありません",emptyLonely:"すべてのメモが、どこかとつながっています。",
-  reviewIntro:"読み返して、思いついたことを書き足しましょう。「見直した」を押すと、次はもう少し先にまた出てきます。",
+  reviewIntro:"読み返して、新しい気づきを書き足したり、ほかのメモとつないだりしましょう。「見直した」を押すと、次はもう少し先にまた出てきます。",
   emptyReviewT:"今日の見直しは終わりです",emptyReview:"また明日、見直すメモが出てきます。",
   reviewed:"見直した",tomorrow:"また明日",reviewedT:"お疲れさまでした。次は少し先に出てきます",
-  growTips:"育てるコツ",tip1:"自分の言葉で書き直す",tip2:"ひとつのメモに、ひとつの考え",tip3:"関係するメモとつなぐ",
-  grown:"育て終わった（メモにする）",grownT:"メモに育ちました",
-  connect:"メモとつなぐ",maybe:"つながりそう",linkToPh:"つなぐメモのタイトル",linkTo:"つなぐ",backlinks:"このメモにつながっているメモ",
-  resources:"資料のリンク（Googleドキュメントなど）",urlPh:"https://docs.google.com/…",add:"追加",badUrl:"https:// から始まるURLを入れてください",remove:"外す",
-  gdoc:"Googleドキュメント",gsheet:"Googleスプレッドシート",gslide:"Googleスライド",gform:"Googleフォーム",gdrive:"Googleドライブ"},
+  themesIntro:"テーマごとに、関係するメモの番号を並べた一覧です。あるテーマのメモを、すぐに見つけられます。",
+  emptyThemesT:"テーマはまだありません",emptyThemes:"下の欄にテーマの名前を入れて、作ってみましょう。",
+  themePh:"新しいテーマの名前（例：時間管理）",makeTheme:"テーマを作る",themeAddPh:"足すメモの番号かタイトル",themeAdd:"足す",
+  themeEmpty:"まだメモが入っていません。",delTheme:"テーマを消す",confirmDelTheme:"このテーマを消します。メモは消えません。",
+  up:"上へ",down:"下へ",remove:"外す",inThemes:"テーマに入れる",
+  linksH:"このメモがつながっているメモ",whyPh:"どうつながる？（ひとこと）",noLinks:"まだつながっていません。",
+  connect:"メモをつなぐ",linkToPh:"番号かタイトル（例：1/2）",linkTo:"つなぐ",maybe:"つながりそう",
+  lookback:"過去のメモを見返す",shuffle:"ほかのメモ",backlinks:"このメモを参照しているメモ",
+  insight:"＋ 気づきを書く",insightTitle:(a,b)=>`${a} と ${b} から気づいたこと`,
+  branch:"＋ 続きを書く",branchHint:n=>`メモ ${n} の続きとして、番号 ${n}/… がつきます`,
+  badRef:"そのメモが見つかりませんでした。番号かタイトルを確かめてください",selfRef:"自分自身とはつなげません",already:"もうつながっています",linked:"つなぎました",
+  saveFirst:"先にこのメモを保存しました",sortNo:"番号順",refs:"つながり"},
  en:{appName:"Everything Book",tagline:"Whatever comes to mind, set it down here.",newMemo:"＋ New note",loading:"Loading…",
   all:"All notes",categories:"Categories",bin:"Bin",uncat:"Uncategorised",search:"Search by keyword (title and text)",
   sortUpdated:"Recently updated",sortViewed:"Recently opened",sortTitle:"By title",
@@ -282,24 +312,33 @@ const T={
   ago:d=>d<1?"today":d<31?`${d} ${d===1?"day":"days"} ago`:d<365?`${Math.floor(d/30.4)} months ago`:`${Math.floor(d/365)} ${d<730?"year":"years"} ago`,
   saveFail:"Could not save. Check your connection and press Save again.",
   graph:"Graph view",graphCount:(n,e)=>`${n} ${n===1?"note":"notes"} · ${e} ${e===1?"link":"links"}`,zoomIn:"Zoom in",zoomOut:"Zoom out",fit:"Fit to view",
-  graphHint:"Write [[Note title]] in a note to link it to another. Click a dot to open the note; drag to move it.",
-  collect:"Collect",capPh:"Drop a thought or a URL here (Enter to collect)",collected:"Seed collected",seed:"Seed",
-  s1:"Collect",s1d:"Drop in ideas and links as they come",s1c:n=>`${n} today`,
-  s2:"Develop",s2d:"Rewrite seeds in your own words",s2c:n=>`${n} ${n===1?"seed":"seeds"}`,
-  s3:"Connect",s3d:"Link notes to related notes and sources",s3c:n=>`${n} unlinked`,
+  graphHint:"Lines show how notes link to one another. Click a dot to open the note; drag to move it.",
+  collect:"Write",capPh:"Jot down one idea (Enter to keep it)",collected:n=>`Note ${n} written down`,
+  s1:"Write",s1d:"One idea to a note",s1c:n=>`${n} today`,
+  s2:"Number",s2d:"Numbered for you; follow-ons go 1/1, 1/1/1",s2c:n=>`${n} ${n===1?"note":"notes"}`,
+  s3:"Link",s3d:"Link related notes by number",s3c:n=>`${n} unlinked`,
   s4:"Review",s4d:"Reread now and then, and add to them",s4c:n=>`${n} today`,
-  seedsIntro:"Seeds you have collected. Open one, rewrite it in your own words, then press “Finished developing” to make it a note.",
-  emptySeedsT:"No seeds to develop",emptySeeds:"Type a thought or a URL into the box above to collect one.",
-  lonelyIntro:"Notes not yet linked to any other note. Open one and use “Connect to a note” to choose related notes.",
+  s5:"Themes",s5d:"List note numbers by theme",s5c:n=>`${n} ${n===1?"theme":"themes"}`,
+  tipsT:"Tips",tip1:"Don’t aim for perfect; just write",tip2:"Five spare minutes a day will do",tip3:"Try separate days for writing and for linking",
+  boxIntro:"Your slip box, in number order. Open a note and press “Write a follow-on” to slot a new note beneath it as 1/1, 1/2 and so on.",
+  emptyBoxT:"The slip box is empty",emptyBox:"Type a single idea into the box above to begin.",
+  lonelyIntro:"Notes not yet linked to any other. Open one, look back over your earlier notes, and link it to related ones by number.",
   emptyLonelyT:"No unlinked notes",emptyLonely:"Every note is linked to at least one other.",
-  reviewIntro:"Reread each note and add whatever comes to mind. Press “Reviewed” and it will come back a little later next time.",
+  reviewIntro:"Reread each note, add any new thoughts, and link it to others. Press “Reviewed” and it will come back a little later next time.",
   emptyReviewT:"Today’s review is done",emptyReview:"More notes will be ready for review tomorrow.",
   reviewed:"Reviewed",tomorrow:"Again tomorrow",reviewedT:"Well done. It will come back a little later.",
-  growTips:"Tips for developing",tip1:"Rewrite it in your own words",tip2:"One idea per note",tip3:"Link it to related notes",
-  grown:"Finished developing (make it a note)",grownT:"It has grown into a note",
-  connect:"Connect to a note",maybe:"Might be related",linkToPh:"Title of the note to link",linkTo:"Link",backlinks:"Notes linking here",
-  resources:"Source links (Google Docs and so on)",urlPh:"https://docs.google.com/…",add:"Add",badUrl:"Enter a URL starting with https://",remove:"Remove",
-  gdoc:"Google Docs",gsheet:"Google Sheets",gslide:"Google Slides",gform:"Google Forms",gdrive:"Google Drive"}
+  themesIntro:"For each theme, a list of the note numbers that belong to it, so you can find a theme’s notes at once.",
+  emptyThemesT:"No themes yet",emptyThemes:"Type a theme name in the box below to make one.",
+  themePh:"New theme name (e.g. Time management)",makeTheme:"Make theme",themeAddPh:"Number or title of a note to add",themeAdd:"Add",
+  themeEmpty:"No notes in this theme yet.",delTheme:"Remove theme",confirmDelTheme:"This removes the theme. Its notes are kept.",
+  up:"Move up",down:"Move down",remove:"Remove",inThemes:"Add to themes",
+  linksH:"Notes this one links to",whyPh:"How are they connected? (a few words)",noLinks:"Not linked to anything yet.",
+  connect:"Link to a note",linkToPh:"Number or title (e.g. 1/2)",linkTo:"Link",maybe:"Might be related",
+  lookback:"Look back over earlier notes",shuffle:"Show others",backlinks:"Notes that refer to this one",
+  insight:"＋ Write what this sparks",insightTitle:(a,b)=>`What ${a} and ${b} show together`,
+  branch:"＋ Write a follow-on",branchHint:n=>`A follow-on to note ${n} is numbered ${n}/…`,
+  badRef:"No note found. Check the number or title.",selfRef:"A note cannot link to itself",already:"Already linked",linked:"Linked",
+  saveFirst:"This note has been saved first",sortNo:"By number",refs:"Links"}
 };
 const SEEDS={
  ja:{cats:["アイデア","買い物","読書","仕事","暮らし"]},
@@ -358,6 +397,7 @@ async function boot(){
   }else store=LocalStore;
   if(!S.settings){S=seed();cacheLocal()}
   for(const m of Object.values(S.memos)) if(m.example){delete S.memos[m.id];persist(()=>store.delMemo(m.id))}
+  migrate();
   checkStale(true);
   render();
 }
@@ -388,26 +428,56 @@ const URL_RE=/https?:\/\/[^\s<>"'）」]+/g;
 const isUrl=s=>/^https?:\/\/\S+$/i.test(s.trim());
 function autolink(s,q){let out="",last=0;for(const x of s.matchAll(URL_RE)){out+=hl(s.slice(last,x.index),q)+`<a class="wl" href="${esc(x[0])}" target="_blank" rel="noopener noreferrer">${hl(x[0],q)}</a>`;last=x.index+x[0].length}return out+hl(s.slice(last),q)}
 function rich(text,q){let out="",last=0;for(const x of text.matchAll(LINK_RE)){out+=autolink(text.slice(last,x.index),q)+`<a href="#" class="wl" data-link="${esc(x[1].trim())}">${hl(x[0],q)}</a>`;last=x.index+x[0].length}return out+autolink(text.slice(last),q)}
-/* zettelkasten: seeds → notes, links, spaced review */
+/* zettelkasten (Luhmann): one idea per note, numbered 1, 1/1, 1/1/1…, linked by number, reviewed, listed by theme */
 const IVL=[1,3,7,14,30,60,120], REVIEW_MAX=5;
-const isSeed=m=>m.stage==="seed";
 const dueAt=m=>m.review?m.review.next:m.updated+DAY;
-const isDue=m=>m.status==="active"&&!isSeed(m)&&dueAt(m)<=Date.now();
+const isDue=m=>m.status==="active"&&dueAt(m)<=Date.now();
+const segs=no=>String(no||"").split("/").map(n=>parseInt(n,10)||0);
+const cmpNo=(a,b)=>{const x=segs(a.no),y=segs(b.no);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]??-1)-(y[i]??-1);if(d)return d}return 0};
+const depth=m=>segs(m.no).length-1;
+const allNos=()=>new Set(Object.values(S.memos).map(m=>m.no).filter(Boolean));
+function nextTop(){let n=0;for(const no of allNos()){const v=parseInt(no,10);if(v>n)n=v}return String(n+1)}
+function nextChild(no){let n=0;const pre=no+"/";for(const x of allNos())if(x.startsWith(pre)&&!x.slice(pre.length).includes("/")){const v=parseInt(x.slice(pre.length),10);if(v>n)n=v}return pre+(n+1)}
+const byNo=no=>Object.values(S.memos).find(m=>m.status==="active"&&m.no===no);
+const label=m=>`${m.no?m.no+" ":""}${m.title||t("untitled")}`;
+function resolveRef(v){
+  v=(v||"").trim().replace(/^#/,""); if(!v) return null;
+  const head=v.split(/\s+/)[0];
+  return byNo(v)||(/^\d+(\/\d+)*$/.test(head)?byNo(head):null)||findByTitle(v)||null;
+}
+function migrate(){
+  const list=Object.values(S.memos).sort((a,b)=>a.created-b.created), changed=[];
+  for(const m of list){
+    let c=false;
+    if(!m.no){m.no=nextTop();c=true}
+    if(!Array.isArray(m.refs)){m.refs=[];c=true}
+    if(m.links&&m.links.length){const add=m.links.map(l=>l.url).filter(u=>!(m.body||"").includes(u));if(add.length)m.body=(m.body?m.body.replace(/\s+$/,"")+"\n":"")+add.join("\n");delete m.links;c=true}
+    else if("links" in m){delete m.links;c=true}
+    if("stage" in m){delete m.stage;c=true}
+    if(c)changed.push(m);
+  }
+  if(!Array.isArray(S.settings.themes)){S.settings.themes=[];saveSettings()}
+  changed.forEach(m=>persist(()=>store.putMemo(m)));
+}
 function linkMap(active){
+  const ids=new Set(active.map(m=>m.id));
   const byTitle=new Map();active.forEach(m=>{const k=(m.title||"").trim().toLowerCase();if(k&&!byTitle.has(k))byTitle.set(k,m)});
   const out=new Map(),inn=new Map();active.forEach(m=>{out.set(m.id,new Set());inn.set(m.id,new Set())});
-  active.forEach(m=>{for(const x of (m.body||"").matchAll(LINK_RE)){const to=byTitle.get(x[1].trim().toLowerCase());if(to&&to.id!==m.id){out.get(m.id).add(to.id);inn.get(to.id).add(m.id)}}});
+  const add=(a,b)=>{if(a!==b&&ids.has(b)){out.get(a).add(b);inn.get(b).add(a)}};
+  active.forEach(m=>{
+    (m.refs||[]).forEach(r=>add(m.id,r.to));
+    for(const x of (m.body||"").matchAll(LINK_RE)){const to=byTitle.get(x[1].trim().toLowerCase());if(to)add(m.id,to.id)}
+  });
   return {out,in:inn};
 }
-function svcLabel(url){
-  try{const u=new URL(url),h=u.hostname.replace(/^www\./,"");
-    if(h==="docs.google.com"){const p=u.pathname;return t(p.startsWith("/spreadsheets")?"gsheet":p.startsWith("/presentation")?"gslide":p.startsWith("/forms")?"gform":"gdoc")}
-    if(h==="drive.google.com")return t("gdrive");
-    if(h==="youtube.com"||h==="youtu.be"||h==="m.youtube.com")return "YouTube";
-    return h}catch(e){return url}
+const themes=()=>S.settings.themes||(S.settings.themes=[]);
+function refsHtml(m,lm){
+  const outs=(m.refs||[]).map(r=>({r,x:S.memos[r.to]})).filter(o=>o.x&&o.x.status==="active");
+  const ins=[...(lm.in.get(m.id)||[])].map(id=>S.memos[id]).filter(x=>x&&!(m.refs||[]).some(r=>r.to===x.id));
+  if(!outs.length&&!ins.length) return "";
+  return `<div class="refs">${outs.length?`<span class="lbl">→ ${t("linksH")}</span>`+outs.map(o=>`<span><a href="#" class="wl" data-goto="${o.x.id}">${esc(label(o.x))}</a>${o.r.why?` <span class="why">— ${esc(o.r.why)}</span>`:""}</span>`).join(""):""}
+    ${ins.length?`<span class="lbl">← ${t("backlinks")}</span>`+ins.map(x=>`<span><a href="#" class="wl" data-goto="${x.id}">${esc(label(x))}</a></span>`).join(""):""}</div>`;
 }
-const xlinksHtml=(links,editable)=>links&&links.length?`<div class="xlinks">${links.map((l,i)=>`<span class="xl"><a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer" title="${esc(l.url)}"><i>↗</i> ${esc(svcLabel(l.url))}</a>${editable?`<button type="button" data-rmurl="${i}" aria-label="${t("remove")}">×</button>`:""}</span>`).join("")}</div>`:"";
-const backlinksHtml=ms=>ms.length?`<div class="bl">← ${t("backlinks")}: ${ms.map(x=>`<a href="#" class="wl" data-goto="${x.id}">${esc(x.title||t("untitled"))}</a>`).join("")}</div>`:"";
 function matches(m,q){const words=q.toLowerCase().trim().split(/\s+/).filter(Boolean);const hay=(m.title+"\n"+m.body).toLowerCase();return words.every(w=>hay.includes(w))}
 function toast(msg){const h=$("#toastHost");h.innerHTML=`<div class="toast" role="status">${esc(msg)}</div>`;clearTimeout(toast.t);toast.t=setTimeout(()=>h.innerHTML="",2600)}
 
@@ -418,7 +488,7 @@ function render(){
   document.querySelectorAll("[data-t]").forEach(el=>el.textContent=t(el.dataset.t));
   $("#lang-ja").setAttribute("aria-pressed",lang==="ja");$("#lang-en").setAttribute("aria-pressed",lang==="en");
   $("#q").placeholder=t("search");$("#cap").placeholder=t("capPh");
-  $("#sort").innerHTML=["updated","viewed","title"].map(k=>`<option value="${k}" ${view.sort===k?"selected":""}>${t("sort"+k[0].toUpperCase()+k.slice(1))}</option>`).join("");
+  $("#sort").innerHTML=["updated","viewed","title","no"].map(k=>`<option value="${k}" ${view.sort===k?"selected":""}>${t("sort"+k[0].toUpperCase()+k.slice(1))}</option>`).join("");
   setStatus();
   if(!S.settings) return;
   const all=Object.values(S.memos), active=all.filter(m=>m.status==="active"), binned=all.filter(m=>m.status==="bin");
@@ -433,20 +503,23 @@ function render(){
   $("#mobiletools").innerHTML=toolsHtml;
   // banner
   $("#staleBanner").innerHTML=staleJustMoved&&view.folder!=="bin"?`<div class="banner" role="status"><span>${esc(t("staleMoved",staleJustMoved))}</span><button class="btn" data-folder="bin">${t("review")}</button></div>`:"";
-  // zettelkasten steps
-  const lm=linkMap(active), seeds=active.filter(isSeed), notes=active.filter(m=>!isSeed(m));
-  const lonely=notes.filter(m=>!lm.out.get(m.id).size&&!lm.in.get(m.id).size);
-  const due=notes.filter(isDue).sort((a,b)=>dueAt(a)-dueAt(b)).slice(0,REVIEW_MAX);
+  // zettelkasten steps (from the five steps of Luhmann's slip box)
+  const lm=linkMap(active);
+  const lonely=active.filter(m=>!lm.out.get(m.id).size&&!lm.in.get(m.id).size);
+  const due=active.filter(isDue).sort((a,b)=>dueAt(a)-dueAt(b)).slice(0,REVIEW_MAX);
   const today=new Date().setHours(0,0,0,0);
-  const st=(n,key,folder,count)=>`<button class="step" ${folder?`data-folder="${folder}"`:`data-act="capfocus"`} aria-current="${!!folder&&view.folder===folder}"><b><span>${n}</span>${t(key)}</b><small>${t(key+"d")}</small><em class="${folder&&count?"on":""}">${t(key+"c",count)}</em></button>`;
-  $("#steps").innerHTML=st(1,"s1",null,active.filter(m=>m.created>=today).length)+st(2,"s2","seeds",seeds.length)+st(3,"s3","lonely",lonely.length)+st(4,"s4","review",due.length);
+  const st=(n,key,folder,count,hot)=>`<button class="step" ${folder?`data-folder="${folder}"`:`data-act="capfocus"`} aria-current="${!!folder&&view.folder===folder}"><b><span>${n}</span>${t(key)}</b><small>${t(key+"d")}</small><em class="${hot&&count?"on":""}">${t(key+"c",count)}</em></button>`;
+  $("#steps").innerHTML=st(1,"s1",null,active.filter(m=>m.created>=today).length)+st(2,"s2","box",active.length)+st(3,"s3","lonely",lonely.length,true)+st(4,"s4","review",due.length,true)+st(5,"s5","themes",themes().length);
+  $("#tips").innerHTML=`<b>${t("tipsT")}</b><span>${t("tip1")}</span><span>${t("tip2")}</span><span>${t("tip3")}</span>`;
   if(view.folder==="graph"){renderGraph(active);return}
   stopGraph();
+  if(view.folder==="themes"){renderThemes(active);return}
   // list
-  const flow={seeds:"s2",lonely:"s3",review:"s4"}[view.folder];
-  let list = view.folder==="bin"?binned: view.folder==="all"?active: view.folder==="seeds"?seeds: view.folder==="lonely"?lonely: view.folder==="review"?due: view.folder==="none"?active.filter(m=>!catOf(m)): active.filter(m=>m.cat===view.folder);
+  const flow={box:"s2",lonely:"s3",review:"s4"}[view.folder];
+  let list = view.folder==="bin"?binned: view.folder==="all"?active: view.folder==="box"?active.slice(): view.folder==="lonely"?lonely: view.folder==="review"?due: view.folder==="none"?active.filter(m=>!catOf(m)): active.filter(m=>m.cat===view.folder);
   if(view.q) list=list.filter(m=>matches(m,view.q));
-  if(view.folder!=="review") list.sort(view.sort==="title"?(a,b)=>(a.title||"").localeCompare(b.title||"",lang):view.sort==="viewed"?(a,b)=>b.viewed-a.viewed:(a,b)=>b.updated-a.updated);
+  if(view.folder==="box"||view.sort==="no") list.sort(cmpNo);
+  else if(view.folder!=="review") list.sort(view.sort==="title"?(a,b)=>(a.title||"").localeCompare(b.title||"",lang):view.sort==="viewed"?(a,b)=>b.viewed-a.viewed:(a,b)=>b.updated-a.updated);
   const cur=flow?t(flow):view.folder==="all"?t("all"):view.folder==="bin"?t("bin"):view.folder==="none"?t("uncat"):(cats().find(c=>c.id===view.folder)||{}).name;
   let head=`<h2>${esc(cur)}</h2><p>${view.q?esc(t("resultsFor",list.length,view.q)):t("count",list.length)}</p>`;
   if(flow) head+=`<p style="flex-basis:100%">${t(view.folder+"Intro")}</p>`;
@@ -466,28 +539,54 @@ function render(){
     let snip="";
     if(view.q&&!open&&m.body&&matches({title:"",body:m.body},view.q)){const lw=view.q.trim().split(/\s+/)[0].toLowerCase();const i=Math.max(0,m.body.toLowerCase().indexOf(lw)-12);snip=`<small>${i?"…":""}${hl(m.body.slice(i,i+80).replace(/\n/g," "),view.q)}</small>`}
     const chev=`<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 6 6 6-6 6"/></svg>`;
-    const tog=`<button class="toggle" data-toggle="${m.id}" aria-expanded="${open}"><span class="chip">${esc(name)}</span><span class="tt"><b>${isSeed(m)?`<span class="seed">${t("seed")}</span>`:""}${hl(m.title||t("untitled"),view.q)}</b>${snip}</span><span class="date">${fmtDate(m.updated)}</span>${chev}</button>`;
+    const tog=`<button class="toggle" data-toggle="${m.id}" aria-expanded="${open}"><span class="chip">${esc(name)}</span><span class="tt"><b><span class="no">${esc(m.no||"")}</span>${hl(m.title||t("untitled"),view.q)}</b>${snip}</span><span class="date">${fmtDate(m.updated)}</span>${chev}</button>`;
     let extra="", body="";
     if(m.status==="bin"){
       extra=`<span class="binacts"><button class="btn primary" data-act="keep" data-id="${m.id}">${t("keep")}</button><button class="btn danger" data-act="del" data-id="${m.id}">${t("del")}</button></span>`;
       if(binConfirm===m.id) extra+=`</div><div class="confirm"><span>${t("confirmDel")}</span><button class="btn danger solid" data-act="delyes" data-id="${m.id}">${t("yesDelete")}</button><button class="btn ghost" data-act="cancelconfirm">${t("cancel")}</button>`;
     }
     if(open){
-      const editBtn=`<button class="btn" data-open="${m.id}">${isSeed(m)?t("s2"):t("edit")}</button>`;
+      const editBtn=`<button class="btn" data-open="${m.id}">${t("edit")}</button>`;
       const acts=m.status==="bin"?"":rev?`<span class="revacts">${editBtn}<button class="btn" data-act="tomorrow" data-id="${m.id}">${t("tomorrow")}</button><button class="btn primary" data-act="reviewed" data-id="${m.id}">${t("reviewed")}</button></span>`:editBtn;
-      body=`<div class="content"><p class="text">${rich(m.body||"",view.q)||`<span style="color:var(--muted)">—</span>`}</p>${xlinksHtml(m.links)}${backlinksHtml([...(lm.in.get(m.id)||[])].map(id=>S.memos[id]))}<div class="foot">${m.status==="bin"?`<span class="why">${m.reason==="stale"?t("staleReason"):t("manualReason")}</span>`:""}<span>${t("created")} ${fmtDate(m.created)}</span><span>${t("updated")} ${fmtDate(m.updated)}</span>${acts}</div></div>`;
+      body=`<div class="content"><p class="text">${rich(m.body||"",view.q)||`<span style="color:var(--muted)">—</span>`}</p>${m.status==="bin"?"":refsHtml(m,lm)}<div class="foot">${m.status==="bin"?`<span class="why">${m.reason==="stale"?t("staleReason"):t("manualReason")}</span>`:""}<span>${t("created")} ${fmtDate(m.created)}</span><span>${t("updated")} ${fmtDate(m.updated)}</span>${acts}</div></div>`;
     }
-    return `<article class="item" data-open="${open}" style="--tab:${colorVar(c)}"><div class="head">${tog}${extra}</div>${body}</article>`;
+    return `<article class="item" data-open="${open}" ${view.folder==="box"?`data-depth style="--d:${Math.min(depth(m),6)};--tab:${colorVar(c)}"`:`style="--tab:${colorVar(c)}"`}><div class="head">${tog}${extra}</div>${body}</article>`;
   }).join("");
 }
 
+/* ---------- themes ---------- */
+let themeConfirm=null;
+function renderThemes(active){
+  const ts=themes();
+  $("#viewhead").innerHTML=`<h2>${t("s5")}</h2><p>${t("s5c",ts.length)}</p><p style="flex-basis:100%">${t("themesIntro")}</p>`;
+  const titles=active.slice().sort(cmpNo).map(x=>`<option value="${esc(label(x))}">`).join("");
+  const box=ts.map(th=>{
+    const ms=th.cards.map(id=>S.memos[id]).filter(x=>x&&x.status==="active");
+    return `<section class="theme"><header><input id="th-${th.id}" data-thname="${th.id}" value="${esc(th.name)}" aria-label="${t("s5")}"><span class="date">${t("count",ms.length)}</span><button class="btn ghost" data-act="thdel" data-th="${th.id}">${t("delTheme")}</button></header>
+      ${themeConfirm===th.id?`<div class="confirm"><span>${t("confirmDelTheme")}</span><button class="btn danger solid" data-act="thdelyes" data-th="${th.id}">${t("delTheme")}</button><button class="btn ghost" data-act="thcancel">${t("cancel")}</button></div>`:""}
+      ${ms.length?`<ol>${ms.map((x,i)=>`<li><span class="no">${esc(x.no||"")}</span><a href="#" data-goto="${x.id}">${esc(x.title||t("untitled"))}</a><button data-act="thup" data-th="${th.id}" data-i="${i}" aria-label="${t("up")}" ${i?"":"disabled"}>↑</button><button data-act="thdown" data-th="${th.id}" data-i="${i}" aria-label="${t("down")}" ${i<ms.length-1?"":"disabled"}>↓</button><button data-act="thrm" data-th="${th.id}" data-i="${i}" aria-label="${t("remove")}">×</button></li>`).join("")}</ol>`:`<p class="muted">${t("themeEmpty")}</p>`}
+      <div class="row"><input id="tha-${th.id}" list="th-titles" placeholder="${t("themeAddPh")}" data-thadd="${th.id}"><button class="btn" data-act="thadd" data-th="${th.id}">${t("themeAdd")}</button></div></section>`}).join("");
+  $("#grid").innerHTML=`<div class="themes">${ts.length?box:`<div class="empty"><strong>${t("emptyThemesT")}</strong>${t("emptyThemes")}</div>`}
+    <form class="newtheme" id="newtheme"><input id="th-new" placeholder="${t("themePh")}" aria-label="${t("themePh")}"><button class="btn primary">${t("makeTheme")}</button></form>
+    <datalist id="th-titles">${titles}</datalist></div>`;
+  $("#newtheme").onsubmit=e=>{e.preventDefault();const v=$("#th-new").value.trim();if(!v)return;themes().push({id:"t"+uid(),name:v,cards:[]});saveSettings();render();const i=document.querySelector(".theme:last-of-type input[data-thadd]");i&&i.focus()};
+  document.querySelectorAll("[data-thname]").forEach(i=>i.onchange=e=>{const th=themes().find(x=>x.id===i.dataset.thname);th.name=e.target.value.trim()||th.name;saveSettings()});
+  document.querySelectorAll("[data-thadd]").forEach(i=>i.onkeydown=e=>{if(e.key==="Enter"&&!e.isComposing){e.preventDefault();themeAdd(i.dataset.thadd)}});
+}
+function themeAdd(thid){
+  const inp=$("#tha-"+thid), x=resolveRef(inp.value), th=themes().find(z=>z.id===thid);
+  if(!x){toast(t("badRef"));return}
+  if(!th.cards.includes(x.id))th.cards.push(x.id);
+  saveSettings();render();const n=$("#tha-"+thid);n&&n.focus();
+}
+
 /* ---------- editor ---------- */
-function openEditor(id,title){
+function openEditor(id,title,opt){
   const now=Date.now();
   let m;
   if(id){m=S.memos[id];m.viewed=now;persist(()=>store.putMemo(m))}
-  else{const c=cats().find(c=>c.id===view.folder);m={id:"m"+uid(),title:title||"",body:"",cat:c?c.id:null,created:now,updated:now,viewed:now,status:"active",stage:"note",links:[],isNew:true}}
-  editing={orig:m,draft:{...m,links:[...(m.links||[])]},confirmClose:false};overlayMode="edit";drawOverlay();
+  else{const c=cats().find(c=>c.id===view.folder);m={id:"m"+uid(),no:(opt&&opt.no)||nextTop(),title:title||"",body:"",cat:(opt&&opt.cat!==undefined)?opt.cat:(c?c.id:null),created:now,updated:now,viewed:now,status:"active",refs:(opt&&opt.refs)||[],isNew:true}}
+  editing={orig:m,draft:{...m,refs:(m.refs||[]).map(r=>({...r}))},confirmClose:false,look:null};overlayMode="edit";drawOverlay();
   setTimeout(()=>(id||title?$("#ed-body"):$("#ed-title")).focus(),30);
 }
 
@@ -495,10 +594,8 @@ function openEditor(id,title){
 const G={pos:new Map(),nodes:[],edges:[],cam:{x:0,y:0,k:1},alpha:1,raf:0,canvas:null,ro:null,hover:null,drag:null,match:null,sig:"",fitted:false,col:null};
 const rad=p=>5+Math.sqrt(p.deg)*3;
 function buildGraph(active){
-  const byTitle=new Map();
-  active.forEach(m=>{const k=(m.title||"").trim().toLowerCase();if(k&&!byTitle.has(k))byTitle.set(k,m)});
-  const seen=new Set(),pairs=[];
-  active.forEach(m=>{for(const x of (m.body||"").matchAll(LINK_RE)){const to=byTitle.get(x[1].trim().toLowerCase());if(!to||to.id===m.id)continue;const key=[m.id,to.id].sort().join("|");if(!seen.has(key)){seen.add(key);pairs.push([m.id,to.id])}}});
+  const lm=linkMap(active), seen=new Set(), pairs=[];
+  for(const [a,set] of lm.out)for(const b of set){const key=[a,b].sort().join("|");if(!seen.has(key)){seen.add(key);pairs.push([a,b])}}
   G.nodes=active.map(m=>{let p=G.pos.get(m.id);if(!p){const a=Math.random()*Math.PI*2,r=40+Math.random()*120;p={x:Math.cos(a)*r,y:Math.sin(a)*r,vx:0,vy:0};G.pos.set(m.id,p)}p.m=m;p.deg=0;return p});
   G.edges=pairs.map(([a,b])=>{const p=G.pos.get(a),q=G.pos.get(b);p.deg++;q.deg++;return [p,q]});
   const sig=active.map(m=>m.id).join()+"/"+[...seen].join();
@@ -531,12 +628,12 @@ function draw(){
   ctx.font=`500 ${12/k}px ${C.font}`;ctx.textAlign="center";ctx.textBaseline="top";
   for(const p of G.nodes){
     const r=rad(p),on=lit(p),cat=catOf(p.m);
-    const fill=cat?C.c[cat.color]:C.muted, sd=isSeed(p.m);
+    const fill=cat?C.c[cat.color]:C.muted, sd=false;
     ctx.globalAlpha=on?1:.18;ctx.fillStyle=sd?C.paper:fill;
     ctx.beginPath();ctx.arc(p.x,p.y,r,0,Math.PI*2);ctx.fill();
     ctx.lineWidth=(p===f||sd?2:1)/k;ctx.strokeStyle=p===f?C.ink:sd?fill:C.muted;ctx.stroke();
     if(k>.7||nb.has(p)||(G.match&&on)){
-      const s=p.m.title||t("untitled");
+      const s=label(p.m);
       ctx.globalAlpha=on?.9:.15;ctx.fillStyle=C.ink;ctx.fillText(s.length>18?s.slice(0,17)+"…":s,p.x,p.y+r+4/k);
     }
   }
@@ -584,25 +681,42 @@ function renderGraph(active){
   G.ro=new ResizeObserver(()=>kick());G.ro.observe(c);
   draw();kick();
 }
-function dirty(){const o=editing.orig,d=editing.draft;return editing.orig.isNew?(d.title.trim()||d.body.trim()||d.links.length):(o.title!==d.title||o.body!==d.body||o.cat!==d.cat||o.stage!==d.stage||JSON.stringify(o.links||[])!==JSON.stringify(d.links))}
+function dirty(){const o=editing.orig,d=editing.draft;return editing.orig.isNew?(d.title.trim()||d.body.trim()||d.refs.length):(o.title!==d.title||o.body!==d.body||o.cat!==d.cat||JSON.stringify(o.refs||[])!==JSON.stringify(d.refs))}
 function redrawKeep(){const b=document.querySelector(".sheet .body"),y=b?b.scrollTop:0;drawOverlay();const b2=document.querySelector(".sheet .body");if(b2)b2.scrollTop=y}
-function addLinkTo(title){title=(title||"").trim();if(!title||/[\[\]|#]/.test(title))return;const d=editing.draft;d.body=d.body.replace(/\s+$/,"")+(d.body.trim()?"\n":"")+`[[${title}]]`;redrawKeep()}
-function addUrl(v){v=(v||"").trim();if(!isUrl(v)){toast(t("badUrl"));return}editing.draft.links.push({url:v});redrawKeep()}
+function addRef(v){
+  const d=editing.draft, x=typeof v==="object"?v:resolveRef(v);
+  if(!x){toast(t("badRef"));return}
+  if(x.id===d.id){toast(t("selfRef"));return}
+  if(d.refs.some(r=>r.to===x.id)){toast(t("already"));return}
+  d.refs.push({to:x.id,why:""});redrawKeep();
+  const w=document.querySelector(`[data-why="${d.refs.length-1}"]`);w&&w.focus();
+}
 function zkPanel(d){
-  const pool=Object.values(S.memos).filter(x=>x.status==="active"&&x.id!==d.id).concat([d]);
-  const lm=linkMap(pool), linked=lm.out.get(d.id), text=(d.title+"\n"+d.body).toLowerCase(), dt=(d.title||"").trim().toLowerCase();
-  const others=pool.filter(x=>x.id!==d.id&&(x.title||"").trim());
-  const score=x=>{const xt=x.title.trim().toLowerCase();let s=0;if(xt.length>=2&&text.includes(xt))s+=3;if(dt.length>=2&&(x.title+"\n"+x.body).toLowerCase().includes(dt))s+=2;if(d.cat&&x.cat===d.cat)s+=1;return s};
-  const sugg=others.filter(x=>!linked.has(x.id)).map(x=>[x,score(x)]).filter(([,s])=>s>0).sort((a,b)=>b[1]-a[1]||b[0].updated-a[0].updated).slice(0,6).map(([x])=>x);
+  const active=Object.values(S.memos).filter(x=>x.status==="active"&&x.id!==d.id);
+  const pool=active.concat([d]), lm=linkMap(pool);
+  const linked=new Set(d.refs.map(r=>r.to));
+  const text=(d.title+"\n"+d.body).toLowerCase(), dt=(d.title||"").trim().toLowerCase();
+  const score=x=>{const xt=(x.title||"").trim().toLowerCase();let s=0;if(xt.length>=2&&text.includes(xt))s+=3;if(dt.length>=2&&((x.title||"")+"\n"+x.body).toLowerCase().includes(dt))s+=2;
+    const words=text.split(/[\s、。,.・「」（）()]+/).filter(w=>w.length>=2);if(words.some(w=>((x.title||"")+x.body).toLowerCase().includes(w)))s+=1;if(d.cat&&x.cat===d.cat)s+=1;return s};
+  const cand=active.filter(x=>!linked.has(x.id));
+  const sugg=cand.map(x=>[x,score(x)]).filter(([,s])=>s>0).sort((a,b)=>b[1]-a[1]||b[0].updated-a[0].updated).slice(0,5).map(([x])=>x);
+  if(!editing.look) editing.look=cand.filter(x=>!sugg.includes(x)).sort(()=>Math.random()-.5).slice(0,4).map(x=>x.id);
+  const look=editing.look.map(id=>S.memos[id]).filter(x=>x&&!linked.has(x.id));
+  const ins=[...lm.in.get(d.id)].map(id=>S.memos[id]).filter(Boolean);
+  const rows=d.refs.map((r,i)=>{const x=S.memos[r.to];if(!x)return "";return `<div class="refrow"><span class="tgt"><span class="no">${esc(x.no||"")}</span><a href="#" class="wl" data-goto="${x.id}">${esc(x.title||t("untitled"))}</a></span>
+    <input data-why="${i}" value="${esc(r.why||"")}" placeholder="${t("whyPh")}" aria-label="${t("whyPh")}">
+    <button type="button" class="btn" data-insight="${i}">${t("insight")}</button><button type="button" class="x" data-rmref="${i}" aria-label="${t("remove")}">×</button></div>`}).join("");
+  const ts=themes();
   return `<div class="zk">
-    ${isSeed(d)?`<div class="grow"><b>${t("growTips")}</b><ol><li>${t("tip1")}</li><li>${t("tip2")}</li><li>${t("tip3")}</li></ol><button class="btn primary" data-act="grown">${t("grown")}</button></div>`:""}
+    <h3>→ ${t("linksH")}</h3>
+    ${rows||`<p class="muted">${t("noLinks")}</p>`}
     <h3>${t("connect")}</h3>
-    ${sugg.length?`<div class="sugg"><small>${t("maybe")}:</small>${sugg.map(x=>`<button type="button" data-addlink="${esc(x.title.trim())}">＋ ${esc(x.title)}</button>`).join("")}</div>`:""}
-    <div class="row"><input id="ed-linkto" list="ed-titles" placeholder="${t("linkToPh")}" aria-label="${t("linkToPh")}"><datalist id="ed-titles">${others.map(x=>`<option value="${esc(x.title.trim())}">`).join("")}</datalist><button class="btn" type="button" data-act="linkto">${t("linkTo")}</button></div>
-    ${backlinksHtml([...lm.in.get(d.id)].map(id=>S.memos[id]))}
-    <h3>${t("resources")}</h3>
-    ${xlinksHtml(d.links,true)}
-    <div class="row"><input id="ed-url" type="url" inputmode="url" placeholder="${t("urlPh")}" aria-label="${t("resources")}"><button class="btn" type="button" data-act="addurl">${t("add")}</button></div>
+    <div class="row"><input id="ed-linkto" list="ed-titles" placeholder="${t("linkToPh")}" aria-label="${t("linkToPh")}"><datalist id="ed-titles">${active.slice().sort(cmpNo).map(x=>`<option value="${esc(label(x))}">`).join("")}</datalist><button class="btn" type="button" data-act="linkto">${t("linkTo")}</button></div>
+    ${sugg.length?`<div class="sugg"><small>${t("maybe")}:</small>${sugg.map(x=>`<button type="button" class="s" data-addref="${x.id}">＋ ${esc(label(x))}</button>`).join("")}</div>`:""}
+    ${look.length?`<div class="sugg"><small>${t("lookback")}:</small>${look.map(x=>`<button type="button" class="s" data-addref="${x.id}">＋ ${esc(label(x))}</button>`).join("")}<button type="button" class="btn ghost" data-act="shuffle">${t("shuffle")}</button></div>`:""}
+    ${ins.length?`<h3>← ${t("backlinks")}</h3><div class="sugg">${ins.map(x=>`<a href="#" class="wl" data-goto="${x.id}">${esc(label(x))}</a>`).join(" ")}</div>`:""}
+    ${ts.length?`<h3>${t("inThemes")}</h3><div class="tpick">${ts.map(th=>`<button type="button" data-thtoggle="${th.id}" aria-pressed="${th.cards.includes(d.id)}">${esc(th.name)}</button>`).join("")}</div>`:""}
+    ${d.isNew?"":`<div class="row" style="margin-top:6px"><button type="button" class="btn" data-act="branch">${t("branch")}</button><small class="muted">${t("branchHint",d.no)}</small></div>`}
   </div>`;
 }
 function drawOverlay(){
@@ -616,7 +730,7 @@ function drawOverlay(){
         <button class="btn" data-act="close">${t("close")}</button><button class="btn primary" data-act="save">${t("save")}</button></div>
       ${editing.confirmClose?`<div class="confirm" style="margin:10px 16px 0"><span>${t("unsaved")}</span><button class="btn primary" data-act="saveclose">${t("saveClose")}</button><button class="btn danger" data-act="discard">${t("discard")}</button><button class="btn ghost" data-act="cancelclose">${t("cancel")}</button></div>`:""}
       <div class="body">
-        <input class="title" id="ed-title" placeholder="${t("titlePh")}" value="${esc(d.title)}">
+        <div class="row" style="display:flex;align-items:center;gap:8px"><span class="no" title="${t("s2")}">${esc(d.no)}</span><input class="title" id="ed-title" placeholder="${t("titlePh")}" value="${esc(d.title)}"></div>
         <div class="catpick" role="group" aria-label="${t("category")}">${cats().map(c=>`<button data-pick="${c.id}" aria-pressed="${d.cat===c.id}"><span class="dot" style="background:${colorVar(c)}"></span>${esc(c.name)}</button>`).join("")}<button data-pick="" aria-pressed="${!catOf(d)}"><span class="dot" style="background:var(--line)"></span>${t("uncat")}</button></div>
         <textarea id="ed-body" placeholder="${t("bodyPh")}">${esc(d.body)}</textarea>
         ${zkPanel(d)}
@@ -624,8 +738,8 @@ function drawOverlay(){
       </div></section></div>`;
     $("#ed-title").oninput=e=>{d.title=e.target.value;$("#ed-state").textContent=dirty()?t("unsaved"):""};
     $("#ed-body").oninput=e=>{d.body=e.target.value;$("#ed-state").textContent=dirty()?t("unsaved"):""};
-    $("#ed-linkto").onkeydown=e=>{if(e.key==="Enter"&&!e.isComposing){e.preventDefault();addLinkTo(e.target.value)}};
-    $("#ed-url").onkeydown=e=>{if(e.key==="Enter"&&!e.isComposing){e.preventDefault();addUrl(e.target.value)}};
+    $("#ed-linkto").onkeydown=e=>{if(e.key==="Enter"&&!e.isComposing){e.preventDefault();addRef(e.target.value)}};
+    document.querySelectorAll("[data-why]").forEach(i=>i.oninput=e=>{d.refs[+i.dataset.why].why=e.target.value;$("#ed-state").textContent=dirty()?t("unsaved"):""});
   }
   if(overlayMode==="cats"){
     o.innerHTML=`<div class="scrim" data-act="scrim"><section class="sheet" role="dialog" aria-modal="true" aria-label="${t("catsTitle")}">
@@ -642,7 +756,7 @@ function saveSettings(){persist(()=>store.putSettings(S.settings))}
 async function saveEditor(){
   const d=editing.draft; delete d.isNew; delete d.example;
   d.updated=Date.now(); d.viewed=d.updated;
-  S.memos[d.id]=d; editing.orig={...d}; editing.draft={...d,links:[...(d.links||[])]};
+  S.memos[d.id]=d; editing.orig={...d,refs:d.refs.map(r=>({...r}))}; editing.draft={...d,refs:d.refs.map(r=>({...r}))};
   render(); $("#ed-state").textContent="";
   await persist(()=>store.putMemo(d));
   toast(t("saved")+" · "+t(store.kind));
@@ -654,11 +768,14 @@ function closeOverlay(force){
 
 /* ---------- events ---------- */
 document.addEventListener("click",async e=>{
-  const el=e.target.closest("[data-goto],[data-addlink],[data-rmurl],[data-link],[data-g],[data-toggle],[data-folder],[data-open],[data-act],[data-lang],[data-pick],[data-swatch],[data-delcat]");
+  const el=e.target.closest("[data-thtoggle],[data-insight],[data-addref],[data-rmref],[data-goto],[data-link],[data-g],[data-toggle],[data-folder],[data-open],[data-act],[data-lang],[data-pick],[data-swatch],[data-delcat]");
   if(!el) return;
   if(el.dataset.goto){e.preventDefault();if(overlayMode==="edit"&&dirty()){editing.confirmClose=true;redrawKeep();return}openEditor(el.dataset.goto);return}
-  if(el.dataset.addlink!==undefined){addLinkTo(el.dataset.addlink);return}
-  if(el.dataset.rmurl!==undefined){editing.draft.links.splice(+el.dataset.rmurl,1);redrawKeep();return}
+  if(el.dataset.addref){addRef(S.memos[el.dataset.addref]);return}
+  if(el.dataset.rmref!==undefined){editing.draft.refs.splice(+el.dataset.rmref,1);redrawKeep();return}
+  if(el.dataset.thtoggle){const th=themes().find(x=>x.id===el.dataset.thtoggle),id=editing.draft.id;th.cards=th.cards.includes(id)?th.cards.filter(x=>x!==id):[...th.cards,id];if(editing.draft.isNew)await saveEditor();saveSettings();redrawKeep();return}
+  if(el.dataset.insight!==undefined){const d=editing.draft,r=d.refs[+el.dataset.insight],x=S.memos[r.to];if(dirty()){await saveEditor();toast(t("saveFirst"))}
+    overlayMode=null;openEditor(null,t("insightTitle",d.no,x.no),{no:nextChild(d.no),cat:d.cat,refs:[{to:d.id,why:""},{to:x.id,why:""}]});return}
   if(el.dataset.link!==undefined){e.preventDefault();const to=findByTitle(el.dataset.link);openEditor(to?to.id:null,to?null:el.dataset.link);return}
   if(el.dataset.g){const c=G.canvas;if(el.dataset.g==="fit")fitGraph();else if(c)zoomAt(el.dataset.g==="in"?1.3:1/1.3,c.clientWidth/2,c.clientHeight/2);return}
   if(el.dataset.act==="scrim"&&e.target!==el) return;
@@ -687,9 +804,15 @@ document.addEventListener("click",async e=>{
     case "cats": overlayMode="cats"; drawOverlay(); break;
     case "addcat": {const used=cats().map(c=>c.color);const color=[0,1,2,3,4,5,6,7].find(i=>!used.includes(i))??0;const c={id:"c"+uid(),name:t("newCatName"),color};cats().push(c);saveSettings();drawOverlay();render();const inp=$("#cat-"+c.id);inp&&(inp.focus(),inp.select());break}
     case "capfocus": $("#cap").focus(); break;
-    case "grown": editing.draft.stage="note"; editing.draft.review={step:0,next:Date.now()+DAY}; await saveEditor(); redrawKeep(); toast(t("grownT")); break;
-    case "linkto": addLinkTo($("#ed-linkto").value); break;
-    case "addurl": addUrl($("#ed-url").value); break;
+    case "linkto": addRef($("#ed-linkto").value); break;
+    case "shuffle": editing.look=null; redrawKeep(); break;
+    case "branch": {const d=editing.draft;if(dirty()){await saveEditor();toast(t("saveFirst"))}overlayMode=null;openEditor(null,"",{no:nextChild(d.no),cat:d.cat,refs:[{to:d.id,why:""}]});break}
+    case "thadd": themeAdd(el.dataset.th); break;
+    case "thdel": themeConfirm=el.dataset.th; render(); break;
+    case "thcancel": themeConfirm=null; render(); break;
+    case "thdelyes": S.settings.themes=themes().filter(x=>x.id!==el.dataset.th); themeConfirm=null; saveSettings(); render(); break;
+    case "thup": case "thdown": case "thrm": {const th=themes().find(x=>x.id===el.dataset.th);const ids=th.cards.filter(id=>S.memos[id]&&S.memos[id].status==="active");const i=+el.dataset.i;
+      if(el.dataset.act==="thrm")ids.splice(i,1);else{const j=el.dataset.act==="thup"?i-1:i+1;[ids[i],ids[j]]=[ids[j],ids[i]]}th.cards=ids;saveSettings();render();break}
     case "reviewed": {const step=Math.min((m.review?m.review.step:-1)+1,IVL.length-1);m.review={step,next:Date.now()+IVL[step]*DAY};m.viewed=Date.now();persist(()=>store.putMemo(m));render();toast(t("reviewedT"));break}
     case "tomorrow": m.review={step:m.review?m.review.step:0,next:Date.now()+DAY};m.viewed=Date.now();persist(()=>store.putMemo(m));render();break;
     case "export": exportBackup(); break;
@@ -701,10 +824,10 @@ $("#capture").onsubmit=e=>{
   e.preventDefault();
   const v=$("#cap").value.trim(); if(!v) return;
   const now=Date.now(), url=isUrl(v)?v:null, c=cats().find(c=>c.id===view.folder);
-  const m={id:"m"+uid(),title:url?svcLabel(url):v.length>40?v.slice(0,40)+"…":v,body:!url&&v.length>40?v:"",
-    links:url?[{url}]:[...v.matchAll(URL_RE)].map(x=>({url:x[0]})),cat:c?c.id:null,stage:"seed",created:now,updated:now,viewed:now,status:"active"};
+  const m={id:"m"+uid(),no:nextTop(),title:url?svcLabel(url):v.length>40?v.slice(0,40)+"…":v,body:url||v.length>40?v:"",
+    refs:[],cat:c?c.id:null,created:now,updated:now,viewed:now,status:"active"};
   S.memos[m.id]=m; persist(()=>store.putMemo(m));
-  $("#cap").value=""; render(); toast(t("collected"));
+  $("#cap").value=""; render(); toast(t("collected",m.no));
 };
 $("#q").oninput=e=>{view.q=e.target.value;render()};
 $("#sort").onchange=e=>{view.sort=e.target.value;render()};
@@ -732,7 +855,8 @@ $("#importFile").onchange=async e=>{
     if(!data.settings||!data.memos) throw 0;
     for(const c of data.settings.categories||[]) if(!cats().some(x=>x.id===c.id)) cats().push(c);
     let n=0; for(const m of Object.values(data.memos)){ if(!m||!m.id) continue; S.memos[m.id]=m; n++; persist(()=>store.putMemo(m)) }
-    saveSettings(); render(); toast(t("imported",n));
+    if(Array.isArray(data.settings.themes))for(const th of data.settings.themes)if(!themes().some(x=>x.id===th.id))themes().push(th);
+    migrate(); saveSettings(); render(); toast(t("imported",n));
   }catch(err){toast(t("importErr"))}
 };
 
